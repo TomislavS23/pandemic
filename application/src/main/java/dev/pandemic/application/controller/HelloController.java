@@ -1,4 +1,4 @@
-package dev.pandemic.application;
+package dev.pandemic.application.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

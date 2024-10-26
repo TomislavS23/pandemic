@@ -1,11 +1,14 @@
 package dev.pandemic.application;
 
-import dev.pandemic.service.utilities.TestService;
+import dev.pandemic.service.utilities.AlertUtils;
+import dev.pandemic.service.utilities.MessageUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -16,8 +19,6 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-
-        TestService.PrintSomething();
     }
 
     public static void main(String[] args) {
