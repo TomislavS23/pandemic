@@ -1,0 +1,10 @@
+event:
+  - title: "Increase Infection Rate Marker"
+    description: "Move the Infection Rate Marker up one space on the Infection Rate Track."
+    effect: INCREASE_INFECTION_RATE
+  - title: "Draw Infection Card"
+    description: "Draw the bottom card from the Infection Deck and place 3 disease cubes of the corresponding color on that city, regardless of how many cubes were previously there."
+    effect: DRAW_INFECTION_CARDS
+  - title: "Shuffle Infection Cards"
+    description: "Shuffle all the Infection Cards in the Infection Discard Pile and place them back on top of the Infection Deck."
+    effect: SHUFFLE_INFECTION_CARDS

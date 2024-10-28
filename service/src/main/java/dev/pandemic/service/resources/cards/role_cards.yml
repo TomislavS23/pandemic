@@ -1,0 +1,21 @@
+role:
+  - card-type: MEDIC
+    ability-description: "Removes all cubes of one color when treating disease (instead of one). Once a disease is cured, the Medic removes all cubes of that color simply by entering the city."
+    ability-effect: TREAT_DISEASE
+    special-effect: null
+  - cardType: SCIENTIST
+    ability-description: "Only needs 4 cards of the same color to discover a cure instead of the usual 5."
+    ability-effect: CURE_DISEASE
+    special-effect: null
+  - cardType: RESEARCHER
+    ability-description: "Can give any city card to another player as long as both are in the same city, regardless of the city card’s location."
+    ability-effect: GIVE_CARD
+    special-effect: null
+  - cardType: OPERATIONS_EXPERT
+    ability-description: "Can build a research station in their current city without discarding a card. Once per turn, can move from a research station to any city by discarding a city card."
+    ability-effect: BUILD_RESEARCH_STATION
+    special-effect: MOVE_RESEARCH_STATION
+  - cardType: QUARANTINE_SPECIALIST
+    ability-description: "Prevents both outbreaks and placement of disease cubes in the city they’re in and all connected cities."
+    ability-effect: PREVENT_SPREAD
+    special-effect: null
