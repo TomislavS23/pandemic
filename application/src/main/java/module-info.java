@@ -3,6 +3,7 @@ module dev.pandemic.application.application {
     requires javafx.fxml;
     requires service;
     requires java.desktop;
+    requires java.logging;
 
 
     opens dev.pandemic.application to javafx.fxml;

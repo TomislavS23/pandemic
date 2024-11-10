@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="pnGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="dev.pandemic.application.controller.GameController">
+    <children>
+        <ImageView fx:id="ivGame" fitHeight="1203.0" fitWidth="2185.0" layoutY="-8.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../images/world-map.jpg"/>
+            </image>
+        </ImageView>
+    </children>
+</Pane>

@@ -1,0 +1,25 @@
+.button {
+    -fx-background-color: #333;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 30;
+    -fx-border-insets: 15;
+    -fx-background-insets: 15;
+    -fx-pref-width: infinity;
+}
+
+.button:hover {
+    -fx-background-color: #696969;
+    -fx-background-color: rgba(105, 105, 105, 0.2);
+}
+
+.label {
+    -fx-text-fill: #fff;
+    -fx-font-size: 48;
+    -fx-font-weight: bold;
+    -fx-padding: 20;
+}
+
+#vbMenu {
+    -fx-background-color: #444;
+    -fx-padding: 50;
+}

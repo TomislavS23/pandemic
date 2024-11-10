@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbMenu" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="600.0"
+      stylesheets="@../styles/menu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="dev.pandemic.application.controller.MenuController">
+    <children>
+        <Label text="PANDEMIC"/>
+        <Button fx:id="btnStartGame" alignment="CENTER" maxWidth="-Infinity" mnemonicParsing="false"
+                onAction="#startGame" text="Start Game" textAlignment="CENTER">
+            <font>
+                <Font name="Inter Regular" size="18.0"/>
+            </font>
+        </Button>
+        <Button fx:id="btnLoadGame" alignment="CENTER" maxWidth="-Infinity" mnemonicParsing="false" onAction="#loadGame"
+                text="Load Game" textAlignment="CENTER">
+            <font>
+                <Font name="Inter Regular" size="18.0"/>
+            </font>
+        </Button>
+        <Button fx:id="btnSettings" alignment="CENTER" maxWidth="-Infinity" mnemonicParsing="false"
+                onAction="#enterSettings" text="Settings" textAlignment="CENTER">
+            <font>
+                <Font name="Inter Regular" size="18.0"/>
+            </font>
+        </Button>
+        <Button fx:id="btnExit" alignment="CENTER" maxWidth="-Infinity" mnemonicParsing="false" onAction="#exitGame"
+                text="Exit" textAlignment="CENTER">
+            <font>
+                <Font name="Inter Regular" size="18.0"/>
+            </font>
+        </Button>
+    </children>
+</VBox>
