@@ -1,51 +1,19 @@
 city:
   - blue-cities:
-    - name: "Atlanta"
+    - name: "Mexico City"
       color: CITY_BLUE
-    - name: "Chicago"
+    - name: "Los Angeles"
       color: CITY_BLUE
-    - name: "New York"
+    - name: "Bogotá"
       color: CITY_BLUE
-    - name: "San Francisco"
-      color: CITY_BLUE
-    - name: "Montreal"
-      color: CITY_BLUE
-    - name: "Washington"
-      color: CITY_BLUE
-    - name: "London"
-      color: CITY_BLUE
-    - name: "Madrid"
-      color: CITY_BLUE
-    - name: "Paris"
-      color: CITY_BLUE
-    - name: "Essen"
-      color: CITY_BLUE
-    - name: "Milan"
-      color: CITY_BLUE
-    - name: "St. Petersburg"
+    - name: "Buenos Aires"
       color: CITY_BLUE
   - red-cities:
-    - name: "Los Angeles"
-      color: CITY_RED
-    - name: "Mexico City"
-      color: CITY_RED
-    - name: "Miami"
-      color: CITY_RED
-    - name: "Bogotá"
-      color: CITY_RED
-    - name: "Lima"
-      color: CITY_RED
-    - name: "Santiago"
-      color: CITY_RED
-    - name: "Buenos Aires"
-      color: CITY_RED
-    - name: "São Paulo"
-      color: CITY_RED
-    - name: "Caracas"
+    - name: "St. Petersburg"
       color: CITY_RED
     - name: "Istanbul"
       color: CITY_RED
     - name: "Algiers"
       color: CITY_RED
-    - name: "Kinshasa"
+    - name: "Shanghai"
       color: CITY_RED

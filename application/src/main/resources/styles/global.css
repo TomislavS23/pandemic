@@ -1,0 +1,17 @@
+.button {
+    -fx-background-color: #333;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 30;
+    -fx-border-insets: 15;
+    -fx-background-insets: 15;
+    -fx-pref-width: infinity;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(
+            to right,
+            #003366,
+            #00695c
+    );
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 1, 1);
+}

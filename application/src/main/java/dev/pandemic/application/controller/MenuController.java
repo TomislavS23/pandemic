@@ -2,8 +2,8 @@ package dev.pandemic.application.controller;
 
 import dev.pandemic.application.PandemicApplication;
 import dev.pandemic.service.utilities.AlertUtils;
+import dev.pandemic.application.applicationutils.SceneLoader;
 import dev.pandemic.service.utilities.MessageUtils;
-import dev.pandemic.service.utilities.SceneLoader;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,13 +15,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
-public class MenuController implements Initializable {
+public class MenuController {
+    private static final String GAME_VIEW_PATH = "/views/game-view.fxml";
 
     @FXML
     public Button btnStartGame;
@@ -38,11 +37,11 @@ public class MenuController implements Initializable {
     public void startGame(ActionEvent event) {
         try {
             SceneLoader.loadScene(
-                    new FXMLLoader(PandemicApplication.class.getResource("/views/game-view.fxml")),
-                    (Stage) btnStartGame.getScene().getWindow()
-            );
+                    GAME_VIEW_PATH,
+                    (Stage) btnStartGame.getScene().getWindow(),
+                    "Main Game",
+                    false);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
@@ -60,9 +59,5 @@ public class MenuController implements Initializable {
         if (AlertUtils.showConfirmationAlert("Exit Application", "Are you sure you want to exit?")) {
             Platform.exit();
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 }

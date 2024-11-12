@@ -1,19 +1,13 @@
-# Game window config.
-window-configuration:
-  title: "Pandemic"
-  screen-width: 1920
-  screen-height: 1080
-
-# TODO: Unify cards in Deck class that will have list of each card type.
+# TODO: Unify cards in one Deck class that will have list of each card type.
 game:
   number-of-outbreaks: 0
   starting-city: "Atlanta"
   max-outbreaks: 4
   disease-cubes:
     - color: RED_CUBE
-      count: 12
+      count: 4
     - color: BLUE_CUBE
-      count: 12
+      count: 4
   starting-number-of-cards: 4
   max-number-of-cards: 7
   default-infection-rate: 2

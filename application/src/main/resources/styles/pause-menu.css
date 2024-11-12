@@ -2,10 +2,10 @@
     -fx-text-fill: #0fd69a;
     -fx-font-size: 48;
     -fx-font-weight: bold;
-    -fx-padding: 20;
+    -fx-padding: 80;
 }
 
-#vbMenu {
+#vbPauseMenu {
     -fx-background-color: #444;
     -fx-padding: 50;
 }
