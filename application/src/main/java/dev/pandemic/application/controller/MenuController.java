@@ -34,6 +34,18 @@ public class MenuController {
     public VBox vbMenu;
 
     @FXML
+    private void initialize() {
+        initializeEvents();
+    }
+
+    private void initializeEvents() {
+            btnStartGame.setOnAction(this::startGame);
+            btnLoadGame.setOnAction(this::loadGame);
+            btnSettings.setOnAction(this::loadGame);
+            btnExit.setOnAction(this::exitGame);
+    }
+
+    @FXML
     public void startGame(ActionEvent event) {
         try {
             SceneLoader.loadScene(
@@ -48,10 +60,12 @@ public class MenuController {
 
     @FXML
     public void loadGame(ActionEvent event) {
+        AlertUtils.showAlert("Not implemented yet", "Not yet implemented.", Alert.AlertType.INFORMATION);
     }
 
     @FXML
     public void enterSettings(ActionEvent event) {
+        AlertUtils.showAlert("Not implemented yet", "Not yet implemented.", Alert.AlertType.INFORMATION);
     }
 
     @FXML

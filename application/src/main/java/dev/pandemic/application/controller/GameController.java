@@ -2,6 +2,7 @@ package dev.pandemic.application.controller;
 
 import dev.pandemic.application.applicationutils.SceneLoader;
 import dev.pandemic.service.utilities.AlertUtils;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameController implements Initializable {
+public class GameController {
 
     private static final String PAUSE_MENU_VIEW_PATH = "/views/pause-menu-view.fxml";
 
@@ -28,6 +29,12 @@ public class GameController implements Initializable {
     @FXML
     public ImageView ivMainGameImage;
 
+    @FXML
+    private void initialize() {
+        initializeEvents();
+    }
+
+    @FXML
     public void enterPauseMenu(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             try {
@@ -38,19 +45,14 @@ public class GameController implements Initializable {
                         false
                 );
             } catch (IOException e) {
+                e.getStackTrace();
                 AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
             }
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        // Really stupid fix for onKeyReleased event that is not working on Pane element.
-        pnMainGame.sceneProperty().addListener((observable, oldScene, newScene) -> {
-            if (newScene != null) {
-                newScene.setOnKeyReleased(this::enterPauseMenu);
-            }
-        });
+    @FXML
+    private void initializeEvents() {
+        Platform.runLater(() -> ivMainGameImage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, this::enterPauseMenu));
     }
 }
