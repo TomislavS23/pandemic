@@ -15,5 +15,5 @@ city:
       color: CITY_RED
     - name: "Algiers"
       color: CITY_RED
-    - name: "Shanghai"
+    - name: "London"
       color: CITY_RED

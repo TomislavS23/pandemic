@@ -39,14 +39,13 @@ public class PauseMenuController {
     @FXML
     private void initialize() {
         initializeEvents();
+        initializeButtonActions();
     }
 
     private void initializeEvents() {
         Platform.runLater(
                 () -> vbPauseMenu.getScene().addEventFilter(KeyEvent.KEY_RELEASED, this::exitPauseMenu)
         );
-
-        initializeButtonActions();
     }
 
     private void initializeButtonActions() {

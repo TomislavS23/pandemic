@@ -1,0 +1,23 @@
+.split-pane .split-pane-divider {
+    -fx-background-color: #dc3545 !important;
+    -fx-padding: 2px;
+}
+
+#stackPaneRight{
+    -fx-background-color: #23272f;
+}
+
+#anchorPaneLeft{
+    -fx-background-color: #23272f;
+}
+
+#debugPane{
+    -fx-background-color: #000;
+    -fx-opacity: 0.75;
+}
+
+#lvStats{
+    -fx-background-color: #23272f;
+    -fx-text-fill: #fff;
+}
+/* REMINDER: #23272f */
