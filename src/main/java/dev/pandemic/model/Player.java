@@ -10,10 +10,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Player {
-    private final String id;
+    public String username;
     private Role role;
     private RoleAbility ability;
     private int actionsLeft;
     private List<Card> hand;
-    private final int maxHandSize;
 }

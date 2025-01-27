@@ -3,8 +3,6 @@ player:
   - player: PLAYER_01
     role: null
     actions-left: 4
-    number-of-cards: 0
   - player: PLAYER_02
     role: null
     actions-left: 4
-    number-of-cards: 0

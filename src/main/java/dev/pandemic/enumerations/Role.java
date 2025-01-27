@@ -4,9 +4,7 @@ import lombok.Getter;
 
 public enum Role {
     MEDIC("Medic"),
-    SCIENTIST("Scientist"),
-    RESEARCHER("Researcher"),
-    DISPATCHER("Dispatcher");
+    SCIENTIST("Scientist");
 
     @Getter
     private final String name;

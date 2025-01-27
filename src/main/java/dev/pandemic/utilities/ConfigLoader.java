@@ -1,22 +1,21 @@
 package dev.pandemic.utilities;
 
-import dev.pandemic.PandemicApplication;
-import org.yaml.snakeyaml.Yaml;
+import dev.pandemic.enumerations.Color;
+import dev.pandemic.model.DiseaseCube;
+import dev.pandemic.model.GameState;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ConfigLoader {
-    private final String CARDS_CONFIG = "/game/cards/cards.yml";
 
-    private final Yaml yaml;
-
-    public ConfigLoader() {
-        this.yaml = new Yaml();
+    private ConfigLoader() {
     }
 
-    public Object loadCardsConfig() {
-        InputStream inputStream = PandemicApplication.class.getResourceAsStream(CARDS_CONFIG);
-        return yaml.load(inputStream);
+    public static GameState prepareGameConfig() {
+        var cubes = new ArrayList<DiseaseCube>();
+        cubes.add(new DiseaseCube(Color.RED));
+        cubes.add(new DiseaseCube(Color.BLUE));
+
+        return new GameState(cubes);
     }
 }
