@@ -7,17 +7,22 @@
     -fx-background-color: #23272f;
 }
 
+#stackPaneRightLabel{
+    -fx-text-fill: #fff;
+    -fx-font-size: 18px;
+    -fx-padding: 12px;
+    -fx-font-weight: bold;
+}
+
 #anchorPaneLeft{
     -fx-background-color: #23272f;
 }
 
 #debugPane{
     -fx-background-color: #000;
-    -fx-opacity: 0.75;
 }
 
 #lvStats{
-    -fx-background-color: #23272f;
-    -fx-text-fill: #fff;
+    /* -fx-background-color: #23272f;
+    -fx-text-fill: #fff; */
 }
-/* REMINDER: #23272f */

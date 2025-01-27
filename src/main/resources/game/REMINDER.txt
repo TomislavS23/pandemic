@@ -1,0 +1,5 @@
+Summary of Win Conditions:
+    - Disease Cube Management: Win if all disease cubes are used without triggering an outbreak.
+    - No Outbreaks: Win if the outbreak threshold (3 outbreaks) is avoided.
+    - Timed Game: Win if you survive a set number of turns with no outbreaks or if all disease cubes are used. (TBD)
+    - Specific City Protection: Win by ensuring no city has more than 3 disease cubes.

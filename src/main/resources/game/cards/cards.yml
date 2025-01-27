@@ -1,0 +1,69 @@
+city-cards:
+  - name: "Mexico City"
+    color: CITY_BLUE
+    type: CITY_CARD
+  - name: "Los Angeles"
+    color: CITY_BLUE
+    type: CITY_CARD
+  - name: "Bogotá"
+    color: CITY_BLUE
+    type: CITY_CARD
+  - name: "Buenos Aires"
+    color: CITY_BLUE
+    type: CITY_CARD
+  - name: "St. Petersburg"
+    color: CITY_RED
+    type: CITY_CARD
+  - name: "Istanbul"
+    color: CITY_RED
+    type: CITY_CARD
+  - name: "Algiers"
+    color: CITY_RED
+    type: CITY_CARD
+  - name: "London"
+    color: CITY_RED
+    type: CITY_CARD
+infection-cards:
+  - name: "Mexico City"
+    color: CITY_BLUE
+    type: INFECTION_CARD
+  - name: "Los Angeles"
+    color: CITY_BLUE
+    type: INFECTION_CARD
+  - name: "Bogotá"
+    color: CITY_BLUE
+    type: INFECTION_CARD
+  - name: "Buenos Aires"
+    color: CITY_BLUE
+    type: INFECTION_CARD
+  - name: "St. Petersburg"
+    color: CITY_RED
+    type: INFECTION_CARD
+  - name: "Istanbul"
+    color: CITY_RED
+    type: INFECTION_CARD
+  - name: "Algiers"
+    color: CITY_RED
+    type: INFECTION_CARD
+  - name: "London"
+    color: CITY_RED
+    type: INFECTION_CARD
+role-cards:
+  - card-type: MEDIC
+    ability-description: "Removes all cubes of one color when treating disease (instead of one). Once a disease is cured, the Medic removes all cubes of that color simply by entering the city."
+    ability-effect: TREAT_DISEASE
+    special-effect: null
+  - card-type: SCIENTIST
+    ability-description: "Only needs 4 cards of the same color to discover a cure instead of the usual 5."
+    ability-effect: CURE_DISEASE
+    special-effect: null
+event-cards:
+  - title: "Increase Infection Rate Marker"
+    description: "Move the Infection Rate Marker up one space on the Infection Rate Track."
+    effect: INCREASE_INFECTION_RATE
+  - title: "Draw Infection Card"
+    description: "Draw the bottom card from the Infection Deck and place 3 disease cubes of the corresponding color on that city, regardless of how many cubes were previously there."
+    effect: DRAW_INFECTION_CARDS
+  - title: "Shuffle Infection Cards"
+    description: "Shuffle all the Infection Cards in the Infection Discard Pile and place them back on top of the Infection Deck."
+    effect: SHUFFLE_INFECTION_CARDS

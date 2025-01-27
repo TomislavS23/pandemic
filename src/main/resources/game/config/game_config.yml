@@ -1,16 +1,14 @@
-# TODO: Unify cards in one Deck class that will have list of each card type.
-game:
-  number-of-outbreaks: 0
+general:
   starting-city: "Atlanta"
   max-outbreaks: 4
   disease-cubes:
     - color: RED_CUBE
-      count: 4
+      count: 24
     - color: BLUE_CUBE
-      count: 4
-  starting-number-of-cards: 4
-  max-number-of-cards: 7
+      count: 24
+  starting-number-of-cards: 2
   default-infection-rate: 2
-  cure-status:
-    red: false
-    blue: false
+
+game-setup:
+  starting-infection-cards: 3 # TODO: 3 cubes first city, 2 cubes second, 1 last
+  epidemic-cards-player-deck: 4
