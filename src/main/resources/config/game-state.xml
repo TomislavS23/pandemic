@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<game-state>
+    <max-outbreaks>4</max-outbreaks>
+    <outbreak-counter>0</outbreak-counter>
+    <disease-cubes>
+        <disease-cube color="red">24</disease-cube>
+        <disease-cube color="blue">24</disease-cube>
+    </disease-cubes>
+    <starting-number-of-cards>2</starting-number-of-cards>
+    <infection-rate>2</infection-rate>
+    <infection-rate-counter>0</infection-rate-counter>
+    <starting-infection-cards>3</starting-infection-cards>
+    <epidemic-cards-in-player-deck>4</epidemic-cards-in-player-deck>
+    <player username="PLAYER_01" role="medic" ability="treat-disease">
+        <actionsLeft>4</actionsLeft>
+    </player>
+</game-state>

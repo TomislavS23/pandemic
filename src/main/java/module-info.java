@@ -9,6 +9,7 @@ module dev.pandemic.pandemic {
     opens dev.pandemic to javafx.fxml;
     opens dev.pandemic.controller;
     opens dev.pandemic.model to jakarta.xml.bind;
+    opens dev.pandemic.dto to jakarta.xml.bind;
     exports dev.pandemic;
     exports dev.pandemic.controller;
     exports dev.pandemic.enumerations;

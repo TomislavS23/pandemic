@@ -1,0 +1,79 @@
+<cards>
+    <card color="blue" card-type="city-card">
+        <title>Mexico City</title>
+    </card>
+    <card color="blue" card-type="city-card">
+        <title>Los Angeles</title>
+    </card>
+    <card color="blue" card-type="city-card">
+        <title>Bogotá</title>
+    </card>
+    <card color="blue" card-type="city-card">
+        <title>Buenos Aires</title>
+    </card>
+    <card color="red" card-type="city-card">
+        <title>St. Petersburg</title>
+    </card>
+    <card color="red" card-type="city-card">
+        <title>Istanbul</title>
+    </card>
+    <card color="red" card-type="city-card">
+        <title>Algiers</title>
+    </card>
+    <card color="red" card-type="city-card">
+        <title>London</title>
+    </card>
+
+    <card color="blue" card-type="infection-card">
+        <title>Mexico City</title>
+    </card>
+    <card color="blue" card-type="infection-card">
+        <title>Los Angeles</title>
+    </card>
+    <card color="blue" card-type="infection-card">
+        <title>Bogotá</title>
+    </card>
+    <card color="blue" card-type="infection-card">
+        <title>Buenos Aires</title>
+    </card>
+    <card color="red" card-type="infection-card">
+        <title>St. Petersburg</title>
+    </card>
+    <card color="red" card-type="infection-card">
+        <title>Istanbul</title>
+    </card>
+    <card color="red" card-type="infection-card">
+        <title>Algiers</title>
+    </card>
+    <card color="red" card-type="infection-card">
+        <title>London</title>
+    </card>
+
+    <card card-type="role" role="medic">
+        <title>Medic</title>
+        <description>Removes all cubes of one color when treating disease (instead of one). Once a disease is cured, the
+            Medic removes all cubes of that color simply by entering the city.
+        </description>
+    </card>
+    <card card-type="role" role="scientist">
+        <title>Scientist</title>
+        <description>Only needs 4 cards of the same color to discover a cure instead of the usual 5.</description>
+    </card>
+
+    <card event-type="increase-infection-rate">
+        <title>Increase Infection Rate Marker</title>
+        <description>Move the Infection Rate Marker up one space on the Infection Rate Track.</description>
+    </card>
+    <card event-type="draw-infection-cards">
+        <title>Draw Infection Card</title>
+        <description>Draw the bottom card from the Infection Deck and place 3 disease cubes of the corresponding color
+            on that city, regardless of how many cubes were previously there.
+        </description>
+    </card>
+    <card event-type="shuffle-infection-cards">
+        <title>Shuffle Infection Cards</title>
+        <description>Shuffle all the Infection Cards in the Infection Discard Pile and place them back on top of the
+            Infection Deck.
+        </description>
+    </card>
+</cards>
