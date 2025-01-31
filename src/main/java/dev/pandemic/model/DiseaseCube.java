@@ -11,9 +11,10 @@ public class DiseaseCube {
     @XmlAttribute
     private Color color;
     @XmlValue
-    private int count = 24;
+    private int count;
 
-    public DiseaseCube(Color color) {
+    public DiseaseCube(Color color, int count) {
         this.color = color;
+        this.count = count;
     }
 }

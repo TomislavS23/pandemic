@@ -1,9 +1,5 @@
 package dev.pandemic;
 
-import dev.pandemic.enumerations.FilePath;
-import dev.pandemic.model.GameState;
-import dev.pandemic.utilities.GameStateLoader;
-import dev.pandemic.utilities.JAXBUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

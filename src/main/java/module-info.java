@@ -4,6 +4,8 @@ module dev.pandemic.pandemic {
     requires static lombok;
     requires java.desktop;
     requires jakarta.xml.bind;
+    requires java.sql;
+    requires modelmapper;
 
 
     opens dev.pandemic to javafx.fxml;
@@ -13,4 +15,5 @@ module dev.pandemic.pandemic {
     exports dev.pandemic;
     exports dev.pandemic.controller;
     exports dev.pandemic.enumerations;
+    exports dev.pandemic.model;
 }

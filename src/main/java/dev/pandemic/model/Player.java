@@ -16,13 +16,19 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Player {
     @XmlAttribute
-    public String username = "PLAYER_01";
+    private String username = "PLAYER_01";
     @XmlAttribute
-    private Role role = Role.MEDIC;
+    private Role role;
     @XmlAttribute
-    private RoleAbility ability = RoleAbility.TREAT_DISEASE;
+    private RoleAbility ability;
+    @XmlAttribute(name = "actions-left")
     private int actionsLeft = 4;
     @XmlElementWrapper(name = "cards")
     @XmlElement(name = "hand", nillable = true)
     private List<Card> hand;
+
+    public Player(Role role, RoleAbility ability) {
+        this.role = role;
+        this.ability = ability;
+    }
 }

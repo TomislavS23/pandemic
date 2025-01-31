@@ -11,7 +11,8 @@
     <infection-rate-counter>0</infection-rate-counter>
     <starting-infection-cards>3</starting-infection-cards>
     <epidemic-cards-in-player-deck>4</epidemic-cards-in-player-deck>
-    <player username="PLAYER_01" role="medic" ability="treat-disease">
+    <player username="PLAYER_01">
         <actionsLeft>4</actionsLeft>
     </player>
+    <cards/>
 </game-state>

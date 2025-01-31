@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 @Data
 public class Deck {
-    public ArrayList<Card> cards;
+    private ArrayList<Card> cards;
 
     public Deck(ArrayList<Card> cards) {
         this.cards = cards;

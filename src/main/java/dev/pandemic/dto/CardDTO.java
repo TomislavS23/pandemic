@@ -1,9 +1,6 @@
 package dev.pandemic.dto;
 
-import dev.pandemic.enumerations.CardEventType;
-import dev.pandemic.enumerations.CardType;
-import dev.pandemic.enumerations.Color;
-import dev.pandemic.enumerations.Role;
+import dev.pandemic.enumerations.*;
 import jakarta.xml.bind.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +10,7 @@ import lombok.NoArgsConstructor;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CardDTO {
     @XmlElement(nillable = true, name = "title")
-    public String title;
+    public String name;
     @XmlElement(nillable = true, name = "description")
     public String description;
     @XmlAttribute(name = "color")
