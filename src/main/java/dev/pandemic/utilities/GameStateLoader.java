@@ -5,9 +5,12 @@ import dev.pandemic.dto.CardListDTO;
 import dev.pandemic.enumerations.*;
 import dev.pandemic.model.*;
 import jakarta.xml.bind.JAXBException;
+import javafx.collections.FXCollections;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class GameStateLoader {
 
@@ -20,15 +23,20 @@ public class GameStateLoader {
         var gameState = (GameState) JAXBUtils.load(GameState.class, FilePath.GAME_STATE_CONFIG.getPath());
         gameState.setDiseaseCubes(initializeDiseaseCubes());
         gameState.setInfectionLevels(initializeInfectionLevels());
-        gameState.setCards(initializeCards());
+        gameState.setCityCards(initializeCards(CardType.CITY));
+        gameState.setInfectionCards(initializeCards(CardType.INFECTION));
+        gameState.setRoleCards(initializeCards(CardType.ROLE));
+        gameState.setRoleCards(initializeCards(CardType.EVENT));
         gameState.setPlayerState(new Player());
+        gameState.getPlayerState().setHand(FXCollections.observableArrayList());
+        gameState.setCardDiscardPile(new ArrayList<>());
 
         return gameState;
     }
 
     private static ArrayList<InfectionLevel> initializeInfectionLevels() throws JAXBException {
         var infectionLevels = new ArrayList<InfectionLevel>();
-        var cards = initializeCards();
+        var cards = initializeCards(CardType.CITY);
 
         for (Card card : cards) {
             if (card.getType() == CardType.CITY) {
@@ -39,7 +47,7 @@ public class GameStateLoader {
         return infectionLevels;
     }
 
-    public static ArrayList<Card> initializeCards() throws JAXBException {
+    public static ArrayList<Card> initializeCards(CardType type) throws JAXBException {
         CardListDTO cardList = (CardListDTO) JAXBUtils.load(CardListDTO.class, FilePath.CARDS_CONFIG.getPath());
         var cardDtos = cardList.getCards();
 
@@ -47,15 +55,19 @@ public class GameStateLoader {
 
         // ModelMapper doesn't work here probably because of JAXB annotations
         for (CardDTO card : cardDtos) {
-            cards.add(new Card(
-                    card.name,
-                    card.description,
-                    card.color,
-                    card.type,
-                    card.role,
-                    card.eventType
-            ));
+            if (card.type == type){
+                cards.add(new Card(
+                        card.name,
+                        card.description,
+                        card.color,
+                        card.type,
+                        card.role,
+                        card.eventType
+                ));
+            }
         }
+
+        Collections.shuffle(cards);
 
         return cards;
     }

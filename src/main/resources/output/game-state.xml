@@ -8,7 +8,7 @@
     </disease-cubes>
     <starting-number-of-cards>2</starting-number-of-cards>
     <infection-rate>2</infection-rate>
-    <infection-rate-counter>0</infection-rate-counter>
+    <infection-rate-counter>2</infection-rate-counter>
     <starting-infection-cards>3</starting-infection-cards>
     <epidemic-cards-in-player-deck>4</epidemic-cards-in-player-deck>
     <player username="PLAYER_01" actions-left="4"/>

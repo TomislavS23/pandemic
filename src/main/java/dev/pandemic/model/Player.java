@@ -3,11 +3,13 @@ package dev.pandemic.model;
 import dev.pandemic.enumerations.Role;
 import dev.pandemic.enumerations.RoleAbility;
 import jakarta.xml.bind.annotation.*;
+import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.lang.annotation.ElementType;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -25,7 +27,7 @@ public class Player {
     private int actionsLeft = 4;
     @XmlElementWrapper(name = "cards")
     @XmlElement(name = "hand", nillable = true)
-    private List<Card> hand;
+    private ObservableList<Card> hand;
 
     public Player(Role role, RoleAbility ability) {
         this.role = role;

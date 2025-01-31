@@ -8,13 +8,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <SplitPane fx:id="splitPaneMain" dividerPositions="0.65" focusTraversable="false" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/main-split-pane.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.pandemic.controller.GameController">
     <items>
@@ -33,17 +31,17 @@
                 <Circle fx:id="cBlueBogota" fill="#215bff" layoutX="327.0" layoutY="467.0" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="4.0" />
                 <Circle fx:id="cBlueLosAngeles" fill="#215bff" layoutX="169.0" layoutY="346.0" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="4.0" />
                 <Circle fx:id="cBlueMexicoCity" fill="#215bff" layoutX="243.0" layoutY="413.0" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="4.0" />
-            <Button layoutX="749.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="Draw Infection Cards">
+            <Button fx:id="btnDrawInfectionCards" layoutX="749.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="Draw Infection Cards">
                <font>
                   <Font name="Inter Regular" size="13.0" />
                </font>
             </Button>
-            <Button layoutX="916.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="Draw City Card">
+            <Button fx:id="btnDrawCityCard" layoutX="916.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="Draw City Card">
                <font>
                   <Font name="Inter Regular" size="13.0" />
                </font>
             </Button>
-            <Button layoutX="1082.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="End Turn">
+            <Button fx:id="btnEndTurn" layoutX="749.0" layoutY="1006.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="481.0" text="End Turn">
                <font>
                   <Font name="Inter Regular" size="13.0" />
                </font>
@@ -96,17 +94,57 @@
                   <Font name="Inter Regular" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="139.0" layoutY="741.0" text="N/A" textFill="WHITE">
+            <Label fx:id="lbInfectionRate" layoutX="139.0" layoutY="741.0" text="N/A" textFill="WHITE">
                <font>
                   <Font name="Inter Regular" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="95.0" layoutY="788.0" text="N/A" textFill="WHITE">
+            <Label fx:id="lbPlayer1Role" layoutX="95.0" layoutY="788.0" text="N/A" textFill="WHITE">
                <font>
                   <Font name="Inter Regular" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="489.0" layoutY="788.0" text="N/A" textFill="WHITE">
+            <Label fx:id="lbPlayer2Role" layoutX="489.0" layoutY="788.0" text="N/A" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnUseCard" layoutX="749.0" layoutY="866.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="Use Card">
+               <font>
+                  <Font name="Inter Regular" size="13.0" />
+               </font>
+            </Button>
+            <Button layoutX="1081.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="placeholder">
+               <font>
+                  <Font name="Inter Regular" size="13.0" />
+               </font>
+            </Button>
+            <Label fx:id="lbActionsLeftPlayer1" layoutX="115.0" layoutY="824.0" text="N/A" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbDiseaseCubesLeftP1" layoutX="169.0" layoutY="846.0" text="N/A" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbCurrentPawnLocationP1" layoutX="199.0" layoutY="866.0" text="N/A" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbActionsLeftPlayer2" layoutX="504.0" layoutY="824.0" text="N/A" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbDiseaseCubesLeftP2" layoutX="552.0" layoutY="845.0" text="N/A" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbCurrentPawnLocationP2" layoutX="582.0" layoutY="866.0" text="N/A" textFill="WHITE">
                <font>
                   <Font name="Inter Regular" size="16.0" />
                </font>
@@ -118,68 +156,15 @@
                 <VBox fx:id="vbStatistics" prefWidth="100.0">
                     <children>
                   <Label id="stackPaneRightLabel" text="Player 01 - cards" />
-                        <ListView id="lvStats" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <ListView id="lvStats" fx:id="lvCardsPlayer1" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <VBox.margin>
                                 <Insets />
                             </VBox.margin>
                         </ListView>
                   <Label id="stackPaneRightLabel" text="Player 02 - cards" />
-                        <ListView id="lvStats" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <ListView id="lvStats" fx:id="lvCardsPlayer2" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                     </children>
                 </VBox>
-                <StackPane fx:id="stackPaneDebugger" prefHeight="150.0" prefWidth="200.0" visible="false">
-                    <children>
-                        <Pane id="debugPane" fx:id="pnDebugger" prefHeight="200.0" prefWidth="200.0">
-                            <children>
-                                <Text fill="WHITE" layoutX="48.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Something:" wrappingWidth="109.55173110961914">
-                                    <font>
-                                        <Font name="Inter Regular" size="18.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="WHITE" layoutX="48.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Something:" wrappingWidth="109.55173110961914">
-                                    <font>
-                                        <Font name="Inter Regular" size="18.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="WHITE" layoutX="48.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Something:" wrappingWidth="109.55173110961914">
-                                    <font>
-                                        <Font name="Inter Regular" size="18.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="WHITE" layoutX="48.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Something:" wrappingWidth="109.55173110961914">
-                                    <font>
-                                        <Font name="Inter Regular" size="18.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="WHITE" layoutX="155.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VALUE" wrappingWidth="109.55173110961914">
-                                    <font>
-                                        <Font name="Inter Regular" size="18.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="WHITE" layoutX="155.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VALUE" wrappingWidth="109.55173110961914">
-                                    <font>
-                                        <Font name="Inter Regular" size="18.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="WHITE" layoutX="155.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VALUE" wrappingWidth="109.55173110961914">
-                                    <font>
-                                        <Font name="Inter Regular" size="18.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="WHITE" layoutX="155.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VALUE" wrappingWidth="109.55173110961914">
-                                    <font>
-                                        <Font name="Inter Regular" size="18.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="WHITE" layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DEBUGGER CONSOLE" wrappingWidth="260.75156021118164">
-                                    <font>
-                                        <Font name="Inter Regular" size="24.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </Pane>
-                    </children>
-                </StackPane>
             </children>
         </StackPane>
     </items>

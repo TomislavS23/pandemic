@@ -32,9 +32,15 @@ public class GameState {
     private int epidemicCardsInPlayerDeck;
     @XmlElement(name = "player")
     private Player playerState;
-    @XmlElementWrapper(name = "cards")
+    @XmlElementWrapper(name = "city-deck-cards")
     @XmlElement(name = "card")
-    private ArrayList<Card> cards;
+    private ArrayList<Card> cityCards;
+    @XmlElementWrapper(name = "role-deck-cards")
+    @XmlElement(name = "card")
+    private ArrayList<Card> roleCards;
+    @XmlElementWrapper(name = "infection-deck-cards")
+    @XmlElement(name = "card")
+    private ArrayList<Card> infectionCards;
     @XmlElementWrapper(name = "discarded-cards")
     @XmlElement(name = "discarded-card")
     private ArrayList<Card> cardDiscardPile;
@@ -45,12 +51,16 @@ public class GameState {
     public GameState(
             ArrayList<DiseaseCube> diseaseCubes,
             ArrayList<InfectionLevel> infectionLevels,
-            ArrayList<Card> cards,
+            ArrayList<Card> cityCards,
+            ArrayList<Card> roleCards,
+            ArrayList<Card> infectionCards,
             Player playerState
     ) {
         this.diseaseCubes = diseaseCubes;
         this.infectionLevels = infectionLevels;
-        this.cards = cards;
+        this.cityCards = cityCards;
+        this.roleCards = roleCards;
+        this.infectionCards = infectionCards;
         this.playerState = playerState;
     }
 
@@ -100,8 +110,18 @@ public class GameState {
     }
 
     @XmlTransient
-    public ArrayList<Card> getCards() {
-        return cards;
+    public ArrayList<Card> getCityCards() {
+        return cityCards;
+    }
+
+    @XmlTransient
+    public ArrayList<Card> getRoleCards() {
+        return roleCards;
+    }
+
+    @XmlTransient
+    public ArrayList<Card> getInfectionCards() {
+        return infectionCards;
     }
 
     @XmlTransient
