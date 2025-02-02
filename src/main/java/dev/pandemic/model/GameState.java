@@ -1,11 +1,8 @@
 package dev.pandemic.model;
 
 import jakarta.xml.bind.annotation.*;
-import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.flogger.Flogger;
 
 import java.util.ArrayList;
 
@@ -15,8 +12,8 @@ import java.util.ArrayList;
 public class GameState {
     @XmlElement(name = "max-outbreaks")
     private int maxOutbreaks;
-    @XmlElement(name = "outbreak-counter")
-    private int outbreakCounter;
+    @XmlElement(name = "cube-number-for-outbreak")
+    private int cubeNumberForOutbreak;
     @XmlElementWrapper(name = "disease-cubes")
     @XmlElement(name = "disease-cube")
     private ArrayList<DiseaseCube> diseaseCubes;
@@ -32,9 +29,9 @@ public class GameState {
     private int epidemicCardsInPlayerDeck;
     @XmlElement(name = "player")
     private Player playerState;
-    @XmlElementWrapper(name = "city-deck-cards")
+    @XmlElementWrapper(name = "player-cards")
     @XmlElement(name = "card")
-    private ArrayList<Card> cityCards;
+    private ArrayList<Card> playerCards;
     @XmlElementWrapper(name = "role-deck-cards")
     @XmlElement(name = "card")
     private ArrayList<Card> roleCards;
@@ -51,14 +48,14 @@ public class GameState {
     public GameState(
             ArrayList<DiseaseCube> diseaseCubes,
             ArrayList<InfectionLevel> infectionLevels,
-            ArrayList<Card> cityCards,
+            ArrayList<Card> playerCards,
             ArrayList<Card> roleCards,
             ArrayList<Card> infectionCards,
             Player playerState
     ) {
         this.diseaseCubes = diseaseCubes;
         this.infectionLevels = infectionLevels;
-        this.cityCards = cityCards;
+        this.playerCards = playerCards;
         this.roleCards = roleCards;
         this.infectionCards = infectionCards;
         this.playerState = playerState;
@@ -70,8 +67,8 @@ public class GameState {
     }
 
     @XmlTransient
-    public int getOutbreakCounter() {
-        return outbreakCounter;
+    public int getCubeNumberForOutbreak() {
+        return cubeNumberForOutbreak;
     }
 
     @XmlTransient
@@ -110,8 +107,8 @@ public class GameState {
     }
 
     @XmlTransient
-    public ArrayList<Card> getCityCards() {
-        return cityCards;
+    public ArrayList<Card> getPlayerCards() {
+        return playerCards;
     }
 
     @XmlTransient

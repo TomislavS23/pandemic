@@ -7,8 +7,4 @@ import java.util.ArrayList;
 @Data
 public class Deck {
     private ArrayList<Card> cards;
-
-    public Deck(ArrayList<Card> cards) {
-        this.cards = cards;
-    }
 }

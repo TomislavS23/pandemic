@@ -36,7 +36,7 @@
                   <Font name="Inter Regular" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="btnDrawCityCard" layoutX="916.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="Draw City Card">
+            <Button fx:id="btnDrawCard" layoutX="916.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="Draw Card">
                <font>
                   <Font name="Inter Regular" size="13.0" />
                </font>
@@ -147,6 +147,86 @@
             <Label fx:id="lbCurrentPawnLocationP2" layoutX="582.0" layoutY="866.0" text="N/A" textFill="WHITE">
                <font>
                   <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbLA" layoutX="54.0" layoutY="336.0" text="Los Angeles" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbMC" layoutX="124.0" layoutY="403.0" text="Mexico City" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbBogota" layoutX="249.0" layoutY="457.0" text="Bogotá" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbBuenosAries" layoutX="253.0" layoutY="592.0" text="Buenos Aires" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbLondon" layoutX="506.0" layoutY="266.0" text="London" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbStPetersburg" layoutX="722.0" layoutY="233.0" text="St. Petersburg" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbIstanbul" layoutX="719.0" layoutY="323.0" text="Istanbul" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbShanghai" layoutX="1026.0" layoutY="360.0" text="Shanghai" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbInfectionLevelLA" layoutX="193.0" layoutY="336.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbInfectionLevelMC" layoutX="270.0" layoutY="401.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbInfectionLevelBogota" layoutX="347.0" layoutY="455.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbInfectionLevelBA" layoutX="397.0" layoutY="590.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbInfectionLevelLondon" layoutX="606.0" layoutY="264.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbInfectionLevelSP" layoutX="657.0" layoutY="231.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbInfectionLevelIstanbul" layoutX="657.0" layoutY="321.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbInfectionLevelShanghai" layoutX="972.0" layoutY="358.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="18.0" />
                </font>
             </Label>
             </children>

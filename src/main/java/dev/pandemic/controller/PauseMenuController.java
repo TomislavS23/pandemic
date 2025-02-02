@@ -22,19 +22,15 @@ public class PauseMenuController {
     @FXML
     public VBox vbPauseMenu;
     @FXML
-    public Label lbTitle;
-    @FXML
     public Button btnResume;
-    @FXML
-    public Button btnSettings;
-    @FXML
-    public Button btnLeaveMatch;
     @FXML
     public Button btnQuitGame;
     @FXML
     public Button btnNewGame;
     @FXML
-    public Button btnStatistics;
+    public Button btnSaveGame;
+    @FXML
+    public Button btnDocumentation;
 
     @FXML
     private void initialize() {
@@ -50,11 +46,8 @@ public class PauseMenuController {
 
     private void initializeButtonActions() {
         btnResume.setOnAction(this::resumeGame);
-        btnLeaveMatch.setOnAction(this::leaveMatch);
         btnQuitGame.setOnAction(this::quitGame);
         btnNewGame.setOnAction(this::startNewGame);
-        btnStatistics.setOnAction(this::displayStatistics);
-        btnSettings.setOnAction(this::displaySettings);
     }
 
     @FXML
@@ -73,16 +66,6 @@ public class PauseMenuController {
 
     @FXML
     public void startNewGame(ActionEvent event) {
-        AlertUtils.showAlert("Not implemented yet.", "This button is not implemented.", Alert.AlertType.INFORMATION);
-    }
-
-    @FXML
-    public void displaySettings(ActionEvent event) {
-        AlertUtils.showAlert("Not implemented yet.", "This button is not implemented.", Alert.AlertType.INFORMATION);
-    }
-
-    @FXML
-    public void leaveMatch(ActionEvent event) {
         AlertUtils.showAlert("Not implemented yet.", "This button is not implemented.", Alert.AlertType.INFORMATION);
     }
 
@@ -107,10 +90,5 @@ public class PauseMenuController {
                 AlertUtils.showAlert("Error", Arrays.toString(e.getStackTrace()), Alert.AlertType.ERROR);
             }
         }
-    }
-
-    @FXML
-    public void displayStatistics(ActionEvent event) {
-        AlertUtils.showAlert("Not implemented yet.", "This button is not implemented.", Alert.AlertType.INFORMATION);
     }
 }

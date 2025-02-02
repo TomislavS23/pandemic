@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <game-state>
     <max-outbreaks>4</max-outbreaks>
-    <outbreak-counter>0</outbreak-counter>
+    <cube-number-for-outbreak>3</cube-number-for-outbreak>
     <disease-cubes>
         <disease-cube color="red">24</disease-cube>
         <disease-cube color="blue">24</disease-cube>

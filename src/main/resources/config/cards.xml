@@ -18,7 +18,7 @@
         <title>Istanbul</title>
     </card>
     <card color="red" card-type="city-card">
-        <title>Algiers</title>
+        <title>Shanghai</title>
     </card>
     <card color="red" card-type="city-card">
         <title>London</title>
@@ -43,7 +43,7 @@
         <title>Istanbul</title>
     </card>
     <card color="red" card-type="infection-card">
-        <title>Algiers</title>
+        <title>Shanghai</title>
     </card>
     <card color="red" card-type="infection-card">
         <title>London</title>

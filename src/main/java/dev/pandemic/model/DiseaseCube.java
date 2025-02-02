@@ -4,8 +4,10 @@ import dev.pandemic.enumerations.Color;
 import jakarta.xml.bind.annotation.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
+@Setter
 @XmlType
 public class DiseaseCube {
     @XmlAttribute
@@ -16,5 +18,15 @@ public class DiseaseCube {
     public DiseaseCube(Color color, int count) {
         this.color = color;
         this.count = count;
+    }
+
+    @XmlTransient
+    public Color getColor() {
+        return color;
+    }
+
+    @XmlTransient
+    public int getCount() {
+        return count;
     }
 }

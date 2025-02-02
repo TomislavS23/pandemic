@@ -25,6 +25,8 @@ public class Player {
     private RoleAbility ability;
     @XmlAttribute(name = "actions-left")
     private int actionsLeft = 4;
+    @XmlElement
+    private Pawn pawn;
     @XmlElementWrapper(name = "cards")
     @XmlElement(name = "hand", nillable = true)
     private ObservableList<Card> hand;

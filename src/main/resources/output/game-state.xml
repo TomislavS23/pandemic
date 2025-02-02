@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <game-state>
     <max-outbreaks>4</max-outbreaks>
-    <outbreak-counter>0</outbreak-counter>
+    <cube-number-for-outbreak>3</cube-number-for-outbreak>
     <disease-cubes>
         <disease-cube color="red">24</disease-cube>
         <disease-cube color="blue">24</disease-cube>
@@ -11,10 +11,47 @@
     <infection-rate-counter>2</infection-rate-counter>
     <starting-infection-cards>3</starting-infection-cards>
     <epidemic-cards-in-player-deck>4</epidemic-cards-in-player-deck>
-    <player username="PLAYER_01" actions-left="4"/>
-    <cards>
+    <player username="PLAYER_01" actions-left="4">
+        <pawn>
+            <pawn-location>LOS_ANGELES</pawn-location>
+        </pawn>
+        <cards/>
+    </player>
+    <player-cards>
         <card>
-            <name>Mexico City</name>
+            <name>Shanghai</name>
+            <color>red</color>
+            <type>city-card</type>
+        </card>
+        <card>
+            <name>Increase Infection Rate Marker</name>
+            <description>Move the Infection Rate Marker up one space on the Infection Rate Track.</description>
+            <type>event</type>
+            <eventType>increase-infection-rate</eventType>
+        </card>
+        <card>
+            <name>Shuffle Infection Cards</name>
+            <description>Shuffle all the Infection Cards in the Infection Discard Pile and place them back on top of the
+            Infection Deck.
+        </description>
+            <type>event</type>
+            <eventType>shuffle-infection-cards</eventType>
+        </card>
+        <card>
+            <name>Istanbul</name>
+            <color>red</color>
+            <type>city-card</type>
+        </card>
+        <card>
+            <name>Draw Infection Card</name>
+            <description>Draw the bottom card from the Infection Deck and place 3 disease cubes of the corresponding color
+            on that city, regardless of how many cubes were previously there.
+        </description>
+            <type>event</type>
+            <eventType>draw-infection-cards</eventType>
+        </card>
+        <card>
+            <name>Bogotá</name>
             <color>blue</color>
             <type>city-card</type>
         </card>
@@ -24,75 +61,27 @@
             <type>city-card</type>
         </card>
         <card>
-            <name>Bogotá</name>
-            <color>blue</color>
-            <type>city-card</type>
-        </card>
-        <card>
             <name>Buenos Aires</name>
             <color>blue</color>
             <type>city-card</type>
         </card>
         <card>
-            <name>St. Petersburg</name>
-            <color>red</color>
-            <type>city-card</type>
-        </card>
-        <card>
-            <name>Istanbul</name>
-            <color>red</color>
-            <type>city-card</type>
-        </card>
-        <card>
-            <name>Algiers</name>
-            <color>red</color>
-            <type>city-card</type>
-        </card>
-        <card>
             <name>London</name>
+            <color>red</color>
+            <type>city-card</type>
+        </card>
+        <card>
+            <name>St. Petersburg</name>
             <color>red</color>
             <type>city-card</type>
         </card>
         <card>
             <name>Mexico City</name>
             <color>blue</color>
-            <type>infection-card</type>
+            <type>city-card</type>
         </card>
-        <card>
-            <name>Los Angeles</name>
-            <color>blue</color>
-            <type>infection-card</type>
-        </card>
-        <card>
-            <name>Bogotá</name>
-            <color>blue</color>
-            <type>infection-card</type>
-        </card>
-        <card>
-            <name>Buenos Aires</name>
-            <color>blue</color>
-            <type>infection-card</type>
-        </card>
-        <card>
-            <name>St. Petersburg</name>
-            <color>red</color>
-            <type>infection-card</type>
-        </card>
-        <card>
-            <name>Istanbul</name>
-            <color>red</color>
-            <type>infection-card</type>
-        </card>
-        <card>
-            <name>Algiers</name>
-            <color>red</color>
-            <type>infection-card</type>
-        </card>
-        <card>
-            <name>London</name>
-            <color>red</color>
-            <type>infection-card</type>
-        </card>
+    </player-cards>
+    <role-deck-cards>
         <card>
             <name>Medic</name>
             <description>Removes all cubes of one color when treating disease (instead of one). Once a disease is cured, the
@@ -107,34 +96,58 @@
             <type>role</type>
             <role>scientist</role>
         </card>
+    </role-deck-cards>
+    <infection-deck-cards>
         <card>
-            <name>Increase Infection Rate Marker</name>
-            <description>Move the Infection Rate Marker up one space on the Infection Rate Track.</description>
-            <eventType>increase-infection-rate</eventType>
+            <name>Bogotá</name>
+            <color>blue</color>
+            <type>infection-card</type>
         </card>
         <card>
-            <name>Draw Infection Card</name>
-            <description>Draw the bottom card from the Infection Deck and place 3 disease cubes of the corresponding color
-            on that city, regardless of how many cubes were previously there.
-        </description>
-            <eventType>draw-infection-cards</eventType>
+            <name>London</name>
+            <color>red</color>
+            <type>infection-card</type>
         </card>
         <card>
-            <name>Shuffle Infection Cards</name>
-            <description>Shuffle all the Infection Cards in the Infection Discard Pile and place them back on top of the
-            Infection Deck.
-        </description>
-            <eventType>shuffle-infection-cards</eventType>
+            <name>Mexico City</name>
+            <color>blue</color>
+            <type>infection-card</type>
         </card>
-    </cards>
+        <card>
+            <name>Los Angeles</name>
+            <color>blue</color>
+            <type>infection-card</type>
+        </card>
+        <card>
+            <name>Shanghai</name>
+            <color>red</color>
+            <type>infection-card</type>
+        </card>
+        <card>
+            <name>Buenos Aires</name>
+            <color>blue</color>
+            <type>infection-card</type>
+        </card>
+        <card>
+            <name>Istanbul</name>
+            <color>red</color>
+            <type>infection-card</type>
+        </card>
+        <card>
+            <name>St. Petersburg</name>
+            <color>red</color>
+            <type>infection-card</type>
+        </card>
+    </infection-deck-cards>
+    <discarded-cards/>
     <infection-levels>
         <infection-level city="Mexico City" level="0"/>
+        <infection-level city="London" level="0"/>
         <infection-level city="Los Angeles" level="0"/>
         <infection-level city="Bogotá" level="0"/>
-        <infection-level city="Buenos Aires" level="0"/>
-        <infection-level city="St. Petersburg" level="0"/>
+        <infection-level city="Shanghai" level="0"/>
         <infection-level city="Istanbul" level="0"/>
-        <infection-level city="Algiers" level="0"/>
-        <infection-level city="London" level="0"/>
+        <infection-level city="St. Petersburg" level="0"/>
+        <infection-level city="Buenos Aires" level="0"/>
     </infection-levels>
 </game-state>
