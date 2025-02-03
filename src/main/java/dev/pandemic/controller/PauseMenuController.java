@@ -1,19 +1,16 @@
 package dev.pandemic.controller;
 
-import dev.pandemic.enumerations.Path;
+import dev.pandemic.enumerations.FilePath;
 import dev.pandemic.game.GameStateLoader;
-import dev.pandemic.game.GameUtils;
 import dev.pandemic.model.GameState;
 import dev.pandemic.utilities.AlertUtils;
 import dev.pandemic.utilities.JAXBUtils;
 import dev.pandemic.utilities.SceneLoader;
 import jakarta.xml.bind.JAXBException;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -61,7 +58,7 @@ public class PauseMenuController {
             var state = GameState.getInstance().getState();
             state.getPlayerState().preSave();
 
-            JAXBUtils.save(state, Path.GAME_STATE_OUTPUT.getPath());
+            JAXBUtils.save(state, FilePath.GAME_STATE_OUTPUT.getPath());
             AlertUtils.showAlert("Error", "File saved!", Alert.AlertType.CONFIRMATION);
         } catch (JAXBException e) {
             AlertUtils.showAlert("Error", Arrays.toString(e.getStackTrace()), Alert.AlertType.ERROR);

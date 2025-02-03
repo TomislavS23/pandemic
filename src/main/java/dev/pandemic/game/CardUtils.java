@@ -3,7 +3,7 @@ package dev.pandemic.game;
 import dev.pandemic.dto.CardDTO;
 import dev.pandemic.dto.CardListDTO;
 import dev.pandemic.enumerations.CardType;
-import dev.pandemic.enumerations.Path;
+import dev.pandemic.enumerations.FilePath;
 import dev.pandemic.model.Card;
 import dev.pandemic.model.State;
 import dev.pandemic.utilities.JAXBUtils;
@@ -18,7 +18,7 @@ public class CardUtils {
     }
 
     public static ArrayList<Card> filterCards(CardType type) throws JAXBException {
-        CardListDTO cardList = (CardListDTO) JAXBUtils.load(CardListDTO.class, Path.CARDS_CONFIG.getPath());
+        CardListDTO cardList = (CardListDTO) JAXBUtils.load(CardListDTO.class, FilePath.CARDS_CONFIG.getPath());
         var cardDtos = cardList.getCards();
 
         var cards = new ArrayList<Card>();

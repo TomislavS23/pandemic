@@ -105,14 +105,11 @@ public class GameController {
     }
 
     private void initStatusFields() {
-        var diseaseCubeCount = state.getDiseaseCubes().stream()
-                .filter(dc -> dc.getColor() == Color.BLUE).findFirst();
         var playerState = state.getPlayerState();
 
         lbInfectionRate.setText(String.valueOf(state.getInfectionRateCounter()));
         lbActionsLeftPlayer1.setText(String.valueOf(playerState.getActionsLeft()));
         lbCurrentPawnLocationP1.setText(playerState.getPawn().getLocation().getCityName());
-        // diseaseCubeCount.ifPresent(dc -> lbDiseaseCubesLeftP1.setText(String.valueOf(dc.getCount())));
         lbPlayer1Role.setText(playerState.getRole().getName());
     }
 
@@ -137,7 +134,7 @@ public class GameController {
             GameState.getInstance().setState(GameStateLoader.prepareGameState());
             state = GameState.getInstance().getState();
         } catch (JAXBException e) {
-            AlertUtils.showAlert("Error", Arrays.toString(e.getStackTrace()), Alert.AlertType.ERROR);
+            AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -175,11 +172,12 @@ public class GameController {
             return;
         }
 
+        var playerState = state.getPlayerState();
         isInfectionCardDrawn = false;
         btnUseRoleAbility.setDisable(false);
-        state.getPlayerState().setActionsLeft(4);
+        playerState.setActionsLeft(4);
         btnDrawInfectionCards.setDisable(isInfectionCardDrawn);
-        lbActionsLeftPlayer1.setText(String.valueOf(state.getPlayerState().getActionsLeft()));
+        lbActionsLeftPlayer1.setText(String.valueOf(playerState.getActionsLeft()));
     }
 
     @FXML

@@ -17,29 +17,35 @@ public class GameStateLoader {
     }
 
     public static State prepareGameState() throws JAXBException {
-        var gameState = (State) JAXBUtils.load(State.class, Path.GAME_STATE_CONFIG.getPath());
+        var gameState = (State) JAXBUtils.load(State.class, FilePath.GAME_STATE_CONFIG.getPath());
 
         var playerCards = CardUtils.filterCards(CardType.CITY);
         playerCards.addAll(CardUtils.filterCards(CardType.EVENT));
         Collections.shuffle(playerCards);
-
-        gameState.setDiseaseCubes(initializeDiseaseCubes());
-        gameState.setInfectionLevels(initializeInfectionLevels());
-        gameState.setPlayerCards(playerCards);
-        gameState.setInfectionCards(CardUtils.filterCards(CardType.INFECTION));
-        gameState.setRoleCards(CardUtils.filterCards(CardType.ROLE));
-        gameState.setPlayerState(new Player());
+        setupGameState(gameState, playerCards);
 
         var playerState = gameState.getPlayerState();
+        setupPlayerState(playerState, gameState);
 
+        return gameState;
+    }
+
+    private static void setupPlayerState(Player playerState, State gameState) {
         playerState.setPawn(new Pawn(City.LOS_ANGELES));
         playerState.setHand(FXCollections.observableArrayList());
         playerState.setRole(Role.SCIENTIST);
         playerState.setAbility(RoleAbility.CURE_DISEASE);
         playerState.setActionsLeft(4);
         gameState.setCardDiscardPile(new ArrayList<>());
+    }
 
-        return gameState;
+    private static void setupGameState(State gameState, ArrayList<Card> playerCards) throws JAXBException {
+        gameState.setDiseaseCubes(initializeDiseaseCubes());
+        gameState.setInfectionLevels(initializeInfectionLevels());
+        gameState.setPlayerCards(playerCards);
+        gameState.setInfectionCards(CardUtils.filterCards(CardType.INFECTION));
+        gameState.setRoleCards(CardUtils.filterCards(CardType.ROLE));
+        gameState.setPlayerState(new Player());
     }
 
     private static ArrayList<InfectionLevel> initializeInfectionLevels() throws JAXBException {

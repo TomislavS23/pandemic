@@ -1,6 +1,7 @@
 package dev.pandemic.controller;
 
-import dev.pandemic.enumerations.Path;
+import dev.pandemic.documentation.DocumentationUtils;
+import dev.pandemic.enumerations.FilePath;
 import dev.pandemic.model.GameState;
 import dev.pandemic.model.State;
 import dev.pandemic.utilities.AlertUtils;
@@ -45,6 +46,12 @@ public class MenuController {
 
     @FXML
     private void printDocs(ActionEvent actionEvent) {
+        try {
+            DocumentationUtils.generateHtmlDocumentationFile();
+            AlertUtils.showAlert("Generated", "Your documentation has been generated!", Alert.AlertType.INFORMATION);
+        } catch (IOException | ClassNotFoundException e) {
+            AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
@@ -63,7 +70,7 @@ public class MenuController {
     @FXML
     public void loadGame(ActionEvent event) {
         try {
-            var state = (State) JAXBUtils.load(State.class, Path.GAME_STATE_OUTPUT.getPath());
+            var state = (State) JAXBUtils.load(State.class, FilePath.GAME_STATE_OUTPUT.getPath());
             state.getPlayerState().postLoad();
             GameState.getInstance().setState(state);
 

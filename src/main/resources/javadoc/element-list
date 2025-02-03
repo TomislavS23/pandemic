@@ -1,0 +1,10 @@
+module:dev.pandemic.pandemic
+dev.pandemic
+dev.pandemic.annotations
+dev.pandemic.controller
+dev.pandemic.documentation
+dev.pandemic.dto
+dev.pandemic.enumerations
+dev.pandemic.game
+dev.pandemic.model
+dev.pandemic.utilities
