@@ -17,12 +17,7 @@
                 <Insets bottom="100.0" />
             </padding>
         </Label>
-        <Button fx:id="btnResume" mnemonicParsing="false" onAction="#resumeGame" prefHeight="40.0" prefWidth="1000.0" text="Resume">
-            <font>
-                <Font name="Inter 24pt Regular" size="18.0" />
-            </font>
-        </Button>
-        <Button fx:id="btnNewGame" mnemonicParsing="false" onAction="#startNewGame" prefHeight="40.0" prefWidth="1000.0" text="New Game">
+        <Button fx:id="btnResume" mnemonicParsing="false" prefHeight="40.0" prefWidth="1000.0" text="Resume">
             <font>
                 <Font name="Inter 24pt Regular" size="18.0" />
             </font>
@@ -32,12 +27,12 @@
                 <Font name="Inter 24pt Regular" size="18.0" />
             </font>
         </Button>
-        <Button fx:id="btnDocumentation" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="1000.0" text="Documentation">
+        <Button fx:id="btnNewGame" mnemonicParsing="false" prefHeight="40.0" prefWidth="1000.0" text="New Game">
             <font>
                 <Font name="Inter 24pt Regular" size="18.0" />
             </font>
         </Button>
-        <Button fx:id="btnQuitGame" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="40.0" prefWidth="1000.0" text="Quit Game">
+        <Button fx:id="btnQuitGame" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="1000.0" text="Quit Game">
             <font>
                 <Font name="Inter 24pt Regular" size="18.0" />
             </font>

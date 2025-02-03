@@ -1,7 +1,12 @@
 package dev.pandemic.controller;
 
+import dev.pandemic.enumerations.Path;
+import dev.pandemic.model.GameState;
+import dev.pandemic.model.State;
 import dev.pandemic.utilities.AlertUtils;
+import dev.pandemic.utilities.JAXBUtils;
 import dev.pandemic.utilities.SceneLoader;
+import jakarta.xml.bind.JAXBException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +25,7 @@ public class MenuController {
     @FXML
     public Button btnLoadGame;
     @FXML
-    public Button btnSettings;
+    public Button btnDocumentation;
     @FXML
     public Button btnExit;
     @FXML
@@ -32,10 +37,14 @@ public class MenuController {
     }
 
     private void initializeEvents() {
-            btnStartGame.setOnAction(this::startGame);
-            btnLoadGame.setOnAction(this::loadGame);
-            btnSettings.setOnAction(this::loadGame);
-            btnExit.setOnAction(this::exitGame);
+        btnStartGame.setOnAction(this::startGame);
+        btnLoadGame.setOnAction(this::loadGame);
+        btnDocumentation.setOnAction(this::printDocs);
+        btnExit.setOnAction(this::exitGame);
+    }
+
+    @FXML
+    private void printDocs(ActionEvent actionEvent) {
     }
 
     @FXML
@@ -53,12 +62,19 @@ public class MenuController {
 
     @FXML
     public void loadGame(ActionEvent event) {
-        AlertUtils.showAlert("Not implemented yet", "Not yet implemented.", Alert.AlertType.INFORMATION);
-    }
+        try {
+            var state = (State) JAXBUtils.load(State.class, Path.GAME_STATE_OUTPUT.getPath());
+            state.getPlayerState().postLoad();
+            GameState.getInstance().setState(state);
 
-    @FXML
-    public void enterSettings(ActionEvent event) {
-        AlertUtils.showAlert("Not implemented yet", "Not yet implemented.", Alert.AlertType.INFORMATION);
+            SceneLoader.loadScene(
+                    GAME_VIEW_PATH,
+                    (Stage) btnStartGame.getScene().getWindow(),
+                    "Main Game",
+                    false);
+        } catch (IOException | JAXBException e) {
+            AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML

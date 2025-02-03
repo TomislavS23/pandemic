@@ -16,6 +16,8 @@ public class InfectionLevel {
     private String  city;
     @XmlAttribute
     private int level;
+    @XmlAttribute
+    private boolean diseaseCured;
 
     @XmlTransient
     public String getCity() {
@@ -25,5 +27,10 @@ public class InfectionLevel {
     @XmlTransient
     public int getLevel() {
         return level;
+    }
+
+    @XmlTransient
+    public boolean isDiseaseCured() {
+        return diseaseCured;
     }
 }

@@ -70,10 +70,4 @@
             on that city, regardless of how many cubes were previously there.
         </description>
     </card>
-    <card card-type="event" event-type="shuffle-infection-cards">
-        <title>Shuffle Infection Cards</title>
-        <description>Shuffle all the Infection Cards in the Infection Discard Pile and place them back on top of the
-            Infection Deck.
-        </description>
-    </card>
 </cards>

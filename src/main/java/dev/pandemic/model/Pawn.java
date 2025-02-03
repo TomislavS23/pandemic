@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlType

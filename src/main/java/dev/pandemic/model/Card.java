@@ -4,13 +4,11 @@ import dev.pandemic.enumerations.CardEventType;
 import dev.pandemic.enumerations.CardType;
 import dev.pandemic.enumerations.Color;
 import dev.pandemic.enumerations.Role;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @AllArgsConstructor

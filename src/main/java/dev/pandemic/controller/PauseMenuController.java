@@ -1,7 +1,13 @@
 package dev.pandemic.controller;
 
+import dev.pandemic.enumerations.Path;
+import dev.pandemic.game.GameStateLoader;
+import dev.pandemic.game.GameUtils;
+import dev.pandemic.model.GameState;
 import dev.pandemic.utilities.AlertUtils;
+import dev.pandemic.utilities.JAXBUtils;
 import dev.pandemic.utilities.SceneLoader;
+import jakarta.xml.bind.JAXBException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -29,8 +36,6 @@ public class PauseMenuController {
     public Button btnNewGame;
     @FXML
     public Button btnSaveGame;
-    @FXML
-    public Button btnDocumentation;
 
     @FXML
     private void initialize() {
@@ -45,13 +50,26 @@ public class PauseMenuController {
     }
 
     private void initializeButtonActions() {
-        btnResume.setOnAction(this::resumeGame);
-        btnQuitGame.setOnAction(this::quitGame);
-        btnNewGame.setOnAction(this::startNewGame);
+        btnResume.addEventFilter(MouseEvent.MOUSE_CLICKED, this::resumeGame);
+        btnNewGame.addEventFilter(MouseEvent.MOUSE_CLICKED, this::startNewGame);
+        btnSaveGame.addEventFilter(MouseEvent.MOUSE_CLICKED, this::saveGame);
+        btnQuitGame.addEventFilter(MouseEvent.MOUSE_CLICKED, this::quitGame);
+    }
+
+    private void saveGame(MouseEvent mouseEvent) {
+        try {
+            var state = GameState.getInstance().getState();
+            state.getPlayerState().preSave();
+
+            JAXBUtils.save(state, Path.GAME_STATE_OUTPUT.getPath());
+            AlertUtils.showAlert("Error", "File saved!", Alert.AlertType.CONFIRMATION);
+        } catch (JAXBException e) {
+            AlertUtils.showAlert("Error", Arrays.toString(e.getStackTrace()), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
-    public void resumeGame(ActionEvent event) {
+    public void resumeGame(MouseEvent event) {
         try {
             SceneLoader.loadScene(
                     GAME_VIEW_PATH,
@@ -65,12 +83,21 @@ public class PauseMenuController {
     }
 
     @FXML
-    public void startNewGame(ActionEvent event) {
-        AlertUtils.showAlert("Not implemented yet.", "This button is not implemented.", Alert.AlertType.INFORMATION);
+    public void startNewGame(MouseEvent event) {
+        try {
+            GameState.getInstance().setState(GameStateLoader.prepareGameState());
+            SceneLoader.loadScene(
+                    GAME_VIEW_PATH,
+                    (Stage) btnNewGame.getScene().getWindow(),
+                    "Main Game",
+                    false);
+        } catch (IOException | JAXBException e) {
+            AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
-    public void quitGame(ActionEvent event) {
+    public void quitGame(MouseEvent event) {
         if (AlertUtils.showConfirmationAlert("Exit Application", "Are you sure you want to exit?")) {
             Platform.exit();
         }

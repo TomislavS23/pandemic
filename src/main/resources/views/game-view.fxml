@@ -114,7 +114,7 @@
                   <Font name="Inter Regular" size="13.0" />
                </font>
             </Button>
-            <Button layoutX="1081.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="placeholder">
+            <Button fx:id="btnUseRoleAbility" layoutX="1081.0" layoutY="800.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0" text="Use Role Ability">
                <font>
                   <Font name="Inter Regular" size="13.0" />
                </font>

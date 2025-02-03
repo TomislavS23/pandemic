@@ -8,8 +8,6 @@ import javafx.collections.FXCollections;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class GameStateLoader {
 
@@ -18,8 +16,8 @@ public class GameStateLoader {
     private GameStateLoader() {
     }
 
-    public static GameState prepareGameState() throws JAXBException {
-        var gameState = (GameState) JAXBUtils.load(GameState.class, FilePath.GAME_STATE_CONFIG.getPath());
+    public static State prepareGameState() throws JAXBException {
+        var gameState = (State) JAXBUtils.load(State.class, Path.GAME_STATE_CONFIG.getPath());
 
         var playerCards = CardUtils.filterCards(CardType.CITY);
         playerCards.addAll(CardUtils.filterCards(CardType.EVENT));
@@ -31,8 +29,14 @@ public class GameStateLoader {
         gameState.setInfectionCards(CardUtils.filterCards(CardType.INFECTION));
         gameState.setRoleCards(CardUtils.filterCards(CardType.ROLE));
         gameState.setPlayerState(new Player());
-        gameState.getPlayerState().setPawn(new Pawn(City.LOS_ANGELES));
-        gameState.getPlayerState().setHand(FXCollections.observableArrayList());
+
+        var playerState = gameState.getPlayerState();
+
+        playerState.setPawn(new Pawn(City.LOS_ANGELES));
+        playerState.setHand(FXCollections.observableArrayList());
+        playerState.setRole(Role.SCIENTIST);
+        playerState.setAbility(RoleAbility.CURE_DISEASE);
+        playerState.setActionsLeft(4);
         gameState.setCardDiscardPile(new ArrayList<>());
 
         return gameState;
@@ -44,7 +48,7 @@ public class GameStateLoader {
 
         for (Card card : cards) {
             if (card.getType() == CardType.CITY) {
-                infectionLevels.add(new InfectionLevel(card.getName(), 0));
+                infectionLevels.add(new InfectionLevel(card.getName(), 0, false));
             }
         }
 

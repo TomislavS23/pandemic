@@ -5,8 +5,8 @@ import dev.pandemic.enumerations.Color;
 import dev.pandemic.game.CardUtils;
 import dev.pandemic.game.GameUtils;
 import dev.pandemic.model.Card;
-import dev.pandemic.model.DiseaseCube;
 import dev.pandemic.model.GameState;
+import dev.pandemic.model.State;
 import dev.pandemic.utilities.AlertUtils;
 import dev.pandemic.game.GameStateLoader;
 import dev.pandemic.utilities.SceneLoader;
@@ -20,15 +20,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GameController {
     private static final String PAUSE_MENU_VIEW_PATH = "/views/pause-menu-view.fxml";
-    private static GameState state;
-    private static boolean infectionCardsDrawn = false;
+    private State state;
+    private static boolean isInfectionCardDrawn = false;
     private static final Map<Label, Label> fields = new HashMap<>();
 
     @FXML
@@ -38,19 +37,9 @@ public class GameController {
     @FXML
     public Label lbActionsLeftPlayer1;
     @FXML
-    public Label lbActionsLeftPlayer2;
-    @FXML
-    public Label lbDiseaseCubesLeftP1;
-    @FXML
     public Label lbCurrentPawnLocationP1;
     @FXML
-    public Label lbDiseaseCubesLeftP2;
-    @FXML
-    public Label lbCurrentPawnLocationP2;
-    @FXML
     public Button btnUseCard;
-    @FXML
-    public Label lbPlayer2Role;
     @FXML
     public Label lbPlayer1Role;
     @FXML
@@ -95,6 +84,8 @@ public class GameController {
     public Label lbInfectionLevelIstanbul;
     @FXML
     public Label lbInfectionLevelShanghai;
+    @FXML
+    public Button btnUseRoleAbility;
 
     @FXML
     private void initialize() {
@@ -116,10 +107,13 @@ public class GameController {
     private void initStatusFields() {
         var diseaseCubeCount = state.getDiseaseCubes().stream()
                 .filter(dc -> dc.getColor() == Color.BLUE).findFirst();
-        lbInfectionRate.setText(String.valueOf(state.getInfectionRate()));
-        lbActionsLeftPlayer1.setText(String.valueOf(state.getPlayerState().getActionsLeft()));
-        lbCurrentPawnLocationP1.setText(state.getPlayerState().getPawn().getLocation().getCityName());
-        diseaseCubeCount.ifPresent(dc -> lbDiseaseCubesLeftP1.setText(String.valueOf(dc.getCount())));
+        var playerState = state.getPlayerState();
+
+        lbInfectionRate.setText(String.valueOf(state.getInfectionRateCounter()));
+        lbActionsLeftPlayer1.setText(String.valueOf(playerState.getActionsLeft()));
+        lbCurrentPawnLocationP1.setText(playerState.getPawn().getLocation().getCityName());
+        // diseaseCubeCount.ifPresent(dc -> lbDiseaseCubesLeftP1.setText(String.valueOf(dc.getCount())));
+        lbPlayer1Role.setText(playerState.getRole().getName());
     }
 
     private void initCityFields() {
@@ -135,7 +129,13 @@ public class GameController {
 
     private void initializeGameState() {
         try {
-            state = GameStateLoader.prepareGameState();
+            if (GameState.getInstance().getState() != null) {
+                state = GameState.getInstance().getState();
+                return;
+            }
+
+            GameState.getInstance().setState(GameStateLoader.prepareGameState());
+            state = GameState.getInstance().getState();
         } catch (JAXBException e) {
             AlertUtils.showAlert("Error", Arrays.toString(e.getStackTrace()), Alert.AlertType.ERROR);
         }
@@ -149,12 +149,23 @@ public class GameController {
             btnDrawCard.addEventHandler(MouseEvent.MOUSE_CLICKED, this::drawPlayerCard);
             btnUseCard.addEventHandler(MouseEvent.MOUSE_CLICKED, this::useCard);
             btnEndTurn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::endTurn);
+            btnUseRoleAbility.addEventHandler(MouseEvent.MOUSE_CLICKED, this::useAbility);
         });
+    }
+
+    private void useAbility(MouseEvent mouseEvent) {
+        GameUtils.applyRoleAbility(state, state.getPlayerState().getAbility(), fields);
+        btnUseRoleAbility.setDisable(true);
+
+        if (GameUtils.applyRoleAbilityWinCondition(state))
+            AlertUtils.showAlert("Game Won", "You successfully cured 3 or more cities.", Alert.AlertType.INFORMATION);
+
+        AlertUtils.showAlert("City healed.", "City has been cured successfully.", Alert.AlertType.INFORMATION);
     }
 
     @FXML
     private void endTurn(MouseEvent mouseEvent) {
-        if (!infectionCardsDrawn) {
+        if (!isInfectionCardDrawn) {
             AlertUtils.showAlert("Error", "You have to draw infection cards before finishing turn.", Alert.AlertType.WARNING);
             return;
         }
@@ -164,8 +175,11 @@ public class GameController {
             return;
         }
 
-        infectionCardsDrawn = false;
-        btnDrawInfectionCards.setDisable(infectionCardsDrawn);
+        isInfectionCardDrawn = false;
+        btnUseRoleAbility.setDisable(false);
+        state.getPlayerState().setActionsLeft(4);
+        btnDrawInfectionCards.setDisable(isInfectionCardDrawn);
+        lbActionsLeftPlayer1.setText(String.valueOf(state.getPlayerState().getActionsLeft()));
     }
 
     @FXML
@@ -184,7 +198,6 @@ public class GameController {
 
             var drawnCard = playerCards.removeFirst();
             playerState.getHand().add(drawnCard);
-            state.getCardDiscardPile().add(drawnCard);
             playerState.setActionsLeft(--actions);
             lbActionsLeftPlayer1.setText(String.valueOf(actions));
         } catch (JAXBException e) {
@@ -202,11 +215,14 @@ public class GameController {
             GameUtils.applyInfectionCards(state, CardUtils.drawInfectionCards(state));
             GameUtils.applyInfectionLevels(state, fields);
 
-            infectionCardsDrawn = true;
-            btnDrawInfectionCards.setDisable(infectionCardsDrawn);
+            isInfectionCardDrawn = true;
+            btnDrawInfectionCards.setDisable(isInfectionCardDrawn);
 
             if (GameUtils.applyOutbreakLoseCondition(state))
                 AlertUtils.showAlert("Game Lost", "You have lost the game.", Alert.AlertType.INFORMATION);
+
+            if (GameUtils.applyNoDiseaseCubesLeftWinCondition(state))
+                AlertUtils.showAlert("Game Won!", "You have won the game.", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
             AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -214,13 +230,31 @@ public class GameController {
 
     @FXML
     private void useCard(MouseEvent mouseEvent) {
-        var card = (Card) lvCardsPlayer1.getSelectionModel().getSelectedItem();
+        try {
+            var playerState = state.getPlayerState();
+            var actions = state.getPlayerState().getActionsLeft();
+            var card = (Card) lvCardsPlayer1.getSelectionModel().getSelectedItem();
 
-        if (card == null) {
-            AlertUtils.showAlert("Error", "No card selected.", Alert.AlertType.WARNING);
+            if (card == null) {
+                AlertUtils.showAlert("Error", "No card selected.", Alert.AlertType.WARNING);
+                return;
+            }
+
+
+            if (actions <= 0 && card.getType() != CardType.EVENT) {
+                AlertUtils.showAlert("Error", "You have no actions left.", Alert.AlertType.WARNING);
+                return;
+            }
+
+            playerState.getHand().remove(card);
+            state.getCardDiscardPile().add(card);
+            GameUtils.applyPlayerCard(state, card, lbCurrentPawnLocationP1);
+            lvCardsPlayer1.getItems().remove(card);
+            playerState.setActionsLeft(--actions);
+            lbInfectionRate.setText(String.valueOf(state.getInfectionRateCounter()));
+        } catch (JAXBException e) {
+            AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
-
-
     }
 
     @FXML
