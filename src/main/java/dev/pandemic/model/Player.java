@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Player {
+public class Player implements Serializable {
     @XmlAttribute
     private String username = "PLAYER_01";
     @XmlAttribute
@@ -33,8 +34,7 @@ public class Player {
     @XmlElementWrapper(name = "hand")
     @XmlElement(name = "card")
     private List<Card> handList;
-    @XmlTransient
-    private ObservableList<Card> hand;
+    private transient ObservableList<Card> hand;
 
     public void postLoad() {
         if (handList != null) {

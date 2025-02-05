@@ -9,11 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlType
-public class Pawn {
+public class Pawn implements Serializable {
     @XmlElement(name = "pawn-location")
     private City location;
 

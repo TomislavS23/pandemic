@@ -7,11 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @Setter
 @AllArgsConstructor
 @XmlType
-public class InfectionLevel {
+public class InfectionLevel implements Serializable {
     @XmlAttribute
     private String  city;
     @XmlAttribute

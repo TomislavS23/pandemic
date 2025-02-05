@@ -1,5 +1,6 @@
 package dev.pandemic.controller;
 
+import dev.pandemic.PandemicApplication;
 import dev.pandemic.enumerations.CardType;
 import dev.pandemic.enumerations.Color;
 import dev.pandemic.game.CardUtils;
@@ -7,6 +8,7 @@ import dev.pandemic.game.GameUtils;
 import dev.pandemic.model.Card;
 import dev.pandemic.model.GameState;
 import dev.pandemic.model.State;
+import dev.pandemic.networking.Networking;
 import dev.pandemic.utilities.AlertUtils;
 import dev.pandemic.game.GameStateLoader;
 import dev.pandemic.utilities.SceneLoader;
@@ -198,6 +200,8 @@ public class GameController {
             playerState.getHand().add(drawnCard);
             playerState.setActionsLeft(--actions);
             lbActionsLeftPlayer1.setText(String.valueOf(actions));
+
+            Platform.runLater(Networking::sendRequest);
         } catch (JAXBException e) {
             AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
         }

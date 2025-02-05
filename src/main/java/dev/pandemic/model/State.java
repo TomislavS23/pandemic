@@ -4,12 +4,13 @@ import jakarta.xml.bind.annotation.*;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Setter
 @NoArgsConstructor
 @XmlRootElement(name = "game-state")
-public class State {
+public class State implements Serializable {
     @XmlElement(name = "max-outbreaks")
     private int maxOutbreaks;
     @XmlElement(name = "cube-number-for-outbreak")
