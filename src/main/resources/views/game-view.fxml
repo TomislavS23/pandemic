@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -61,30 +63,20 @@
                   <Font name="Inter Regular" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="846.0" text="Disease cubes left:" textFill="WHITE">
-               <font>
-                  <Font name="Inter Regular" size="16.0" />
-               </font>
-            </Label>
             <Line endX="612.5" endY="6.103515625E-5" layoutX="120.0" layoutY="811.0" startX="-118.99999237060547" startY="1.220703125E-4" stroke="WHITE" strokeWidth="2.0" />
             <Line endX="-100.0" endY="291.4000244140625" layoutX="832.0" layoutY="787.0" startX="-100.0" startY="-1.99993896484375" stroke="WHITE" strokeWidth="2.0" />
-            <Line endX="-100.0" endY="291.4000244140625" layoutX="489.0" layoutY="787.0" startX="-100.0" startY="-1.99993896484375" stroke="WHITE" strokeWidth="2.0" />
+            <Line endX="-100.0" endY="103.41436767578125" layoutX="489.0" layoutY="787.0" startX="-100.0" startY="-1.99993896484375" stroke="WHITE" strokeWidth="2.0" />
             <Label layoutX="403.0" layoutY="823.0" text="Actions Left:" textFill="WHITE">
                <font>
                   <Font name="Inter Regular" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="403.0" layoutY="845.0" text="Disease cubes left:" textFill="WHITE">
+            <Label layoutX="15.0" layoutY="847.0" text="Current pawn location:" textFill="WHITE">
                <font>
                   <Font name="Inter Regular" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="15.0" layoutY="866.0" text="Current pawn location:" textFill="WHITE">
-               <font>
-                  <Font name="Inter Regular" size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="403.0" layoutY="866.0" text="Current pawn location:" textFill="WHITE">
+            <Label layoutX="403.0" layoutY="847.0" text="Current pawn location:" textFill="WHITE">
                <font>
                   <Font name="Inter Regular" size="16.0" />
                </font>
@@ -124,12 +116,7 @@
                   <Font name="Inter Regular" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="lbDiseaseCubesLeftP1" layoutX="169.0" layoutY="846.0" text="N/A" textFill="WHITE">
-               <font>
-                  <Font name="Inter Regular" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbCurrentPawnLocationP1" layoutX="199.0" layoutY="866.0" text="N/A" textFill="WHITE">
+            <Label fx:id="lbCurrentPawnLocationP1" layoutX="199.0" layoutY="847.0" text="N/A" textFill="WHITE">
                <font>
                   <Font name="Inter Regular" size="16.0" />
                </font>
@@ -139,12 +126,7 @@
                   <Font name="Inter Regular" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="lbDiseaseCubesLeftP2" layoutX="552.0" layoutY="845.0" text="N/A" textFill="WHITE">
-               <font>
-                  <Font name="Inter Regular" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbCurrentPawnLocationP2" layoutX="582.0" layoutY="866.0" text="N/A" textFill="WHITE">
+            <Label fx:id="lbCurrentPawnLocationP2" layoutX="583.0" layoutY="847.0" text="N/A" textFill="WHITE">
                <font>
                   <Font name="Inter Regular" size="16.0" />
                </font>
@@ -229,6 +211,20 @@
                   <Font name="Inter Regular" size="18.0" />
                </font>
             </Label>
+            <Line endX="612.5" endY="6.103515625E-5" layoutX="120.0" layoutY="889.0" startX="-118.99999237060547" startY="1.220703125E-4" stroke="WHITE" strokeWidth="2.0" />
+            <TextArea fx:id="taMessages" layoutX="14.0" layoutY="932.0" prefHeight="124.0" prefWidth="701.0">
+               <font>
+                  <Font name="Inter Regular" size="13.0" />
+               </font></TextArea>
+            <TextField fx:id="tfChatMessage" layoutX="14.0" layoutY="900.0" prefHeight="26.0" prefWidth="570.0">
+               <font>
+                  <Font name="Inter Regular" size="13.0" />
+               </font>
+            </TextField>
+            <Button fx:id="btnSendMessage" layoutX="598.0" layoutY="900.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" text="Send">
+               <font>
+                  <Font name="Inter Regular" size="13.0" />
+               </font></Button>
             </children>
         </AnchorPane>
         <StackPane id="stackPaneRight" prefHeight="150.0" prefWidth="200.0">

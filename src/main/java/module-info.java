@@ -6,6 +6,8 @@ module dev.pandemic.pandemic {
     requires jakarta.xml.bind;
     requires java.sql;
     requires modelmapper;
+    requires java.rmi;
+    requires java.management;
 
 
     opens dev.pandemic to javafx.fxml;
@@ -16,4 +18,5 @@ module dev.pandemic.pandemic {
     exports dev.pandemic.controller;
     exports dev.pandemic.enumerations;
     exports dev.pandemic.model;
+    exports dev.pandemic.networking.rmi;
 }

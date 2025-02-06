@@ -19,6 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class PauseMenuController {
@@ -61,6 +63,7 @@ public class PauseMenuController {
 
             JAXBUtils.save(state, FilePath.GAME_STATE_OUTPUT.getPath());
             Serialization.serialize(FilePath.GAME_STATE_OUTPUT.getPath(), FilePath.SERIALIZED_GAME_STATE.getPath());
+            Files.delete(Paths.get(FilePath.GAME_STATE_OUTPUT.getPath()));
             AlertUtils.showAlert("Error", "File saved!", Alert.AlertType.CONFIRMATION);
         } catch (JAXBException | IOException e) {
             AlertUtils.showAlert("Error", Arrays.toString(e.getStackTrace()), Alert.AlertType.ERROR);

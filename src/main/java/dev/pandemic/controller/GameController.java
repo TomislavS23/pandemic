@@ -12,19 +12,30 @@ import dev.pandemic.fxutilities.AlertUtils;
 import dev.pandemic.game.GameStateLoader;
 import dev.pandemic.fxutilities.FXUtils;
 import dev.pandemic.fxutilities.SceneLoader;
+import dev.pandemic.networking.rmi.ChatRemoteService;
+import dev.pandemic.networking.rmi.RMIServer;
 import jakarta.xml.bind.JAXBException;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import lombok.Getter;
-
 import java.io.IOException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameController {
@@ -38,6 +49,8 @@ public class GameController {
     private static final ArrayList<Button> buttons = new ArrayList<>();
     private static final int P01_PORT = 1990;
     private static final int P02_PORT = 1989;
+    public static ChatRemoteService chatRemoteService;
+
 
     public GameController() {
         instance = this;
@@ -105,9 +118,18 @@ public class GameController {
     public Label lbActionsLeftPlayer2;
     @FXML
     public Label lbCurrentPawnLocationP2;
+    @FXML
+    public TextArea taMessages;
+    @FXML
+    public TextField tfChatMessage;
+    @FXML
+    public Button btnSendMessage;
 
     @FXML
     public void initialize() {
+        if (!PlayerType.SINGLEPLAYER.name().equals(PandemicApplication.playerType.name())) {
+            initializeRegistry();
+        }
         initializeGameState();
         initializeEvents();
         initializeFields();
@@ -116,8 +138,41 @@ public class GameController {
         initializeLists();
     }
 
+    private void initializeRegistry() {
+        try {
+            Registry registry = LocateRegistry.getRegistry(RMIServer.HOSTNAME, RMIServer.RMI_PORT);
+            chatRemoteService = (ChatRemoteService) registry.lookup(ChatRemoteService.REMOTE_OBJECT_NAME);
+        } catch (NotBoundException | RemoteException e) {
+            e.printStackTrace();
+        }
+
+        Timeline refreshTimeLine = getChatRefreshTimeline();
+        refreshTimeLine.play();
+    }
+
+    public Timeline getChatRefreshTimeline() {
+        Timeline refreshTimeLine = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            try {
+                List<String> chatMessages = chatRemoteService.getAllMessages();
+                StringBuilder sb = new StringBuilder();
+
+                chatMessages.forEach(m -> {
+                    sb.append(m).append("\n");
+                });
+
+                taMessages.setText(sb.toString());
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        refreshTimeLine.setCycleCount(Animation.INDEFINITE);
+        return refreshTimeLine;
+    }
+
     private void initializeButtons() {
-        if (buttons.isEmpty()){
+        if (buttons.isEmpty()) {
             buttons.add(btnDrawInfectionCards);
             buttons.add(btnDrawCard);
             buttons.add(btnUseRoleAbility);
@@ -191,6 +246,7 @@ public class GameController {
             btnUseCard.addEventHandler(MouseEvent.MOUSE_CLICKED, this::useCard);
             btnEndTurn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::endTurn);
             btnUseRoleAbility.addEventHandler(MouseEvent.MOUSE_CLICKED, this::useAbility);
+            btnSendMessage.setOnAction(this::sendChatMessage);
             EVENTS_REGISTERED = true;
         }
     }
@@ -327,6 +383,16 @@ public class GameController {
             } catch (IOException e) {
                 AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
             }
+        }
+    }
+
+    @FXML
+    public void sendChatMessage(ActionEvent actionEvent) {
+        try {
+            String chatMessage = tfChatMessage.getText();
+            chatRemoteService.sendChatMessage(PandemicApplication.playerType + ": " + chatMessage);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 }
