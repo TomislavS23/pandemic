@@ -14,9 +14,9 @@ import dev.pandemic.fxutilities.FXUtils;
 import dev.pandemic.fxutilities.SceneLoader;
 import dev.pandemic.networking.rmi.ChatRemoteService;
 import dev.pandemic.networking.rmi.RMIServer;
+import dev.pandemic.thread.SaveLastState;
+import dev.pandemic.timeline.Timelines;
 import jakarta.xml.bind.JAXBException;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -26,17 +26,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import lombok.Getter;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameController {
     @Getter
@@ -124,12 +120,17 @@ public class GameController {
     public TextField tfChatMessage;
     @FXML
     public Button btnSendMessage;
+    @FXML
+    public Label lbReplay;
+    @FXML
+    public Label lbReplayValue;
 
     @FXML
     public void initialize() {
         if (!PlayerType.SINGLEPLAYER.name().equals(PandemicApplication.playerType.name())) {
             initializeRegistry();
         }
+        initializeTimelines();
         initializeGameState();
         initializeEvents();
         initializeFields();
@@ -138,37 +139,21 @@ public class GameController {
         initializeLists();
     }
 
+    private void initializeTimelines() {
+        Timeline timeline = Timelines.getLastMoveRefreshTimeline(lbReplayValue);
+        timeline.play();
+    }
+
     private void initializeRegistry() {
         try {
             Registry registry = LocateRegistry.getRegistry(RMIServer.HOSTNAME, RMIServer.RMI_PORT);
             chatRemoteService = (ChatRemoteService) registry.lookup(ChatRemoteService.REMOTE_OBJECT_NAME);
+
+            Timeline refreshTimeLine = Timelines.getChatRefreshTimeline(chatRemoteService, taMessages);
+            refreshTimeLine.play();
         } catch (NotBoundException | RemoteException e) {
             e.printStackTrace();
         }
-
-        Timeline refreshTimeLine = getChatRefreshTimeline();
-        refreshTimeLine.play();
-    }
-
-    public Timeline getChatRefreshTimeline() {
-        Timeline refreshTimeLine = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            try {
-                List<String> chatMessages = chatRemoteService.getAllMessages();
-                StringBuilder sb = new StringBuilder();
-
-                chatMessages.forEach(m -> {
-                    sb.append(m).append("\n");
-                });
-
-                taMessages.setText(sb.toString());
-            } catch (RemoteException ex) {
-                ex.printStackTrace();
-            }
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        refreshTimeLine.setCycleCount(Animation.INDEFINITE);
-        return refreshTimeLine;
     }
 
     private void initializeButtons() {
@@ -308,6 +293,9 @@ public class GameController {
             FXUtils.disableButtons(true, buttons);
             Networking.synchronise(P02_PORT);
         }
+
+        SaveLastState sls = new SaveLastState(state);
+        new Thread(sls, "save-state-thread").start();
     }
 
     @FXML
@@ -343,13 +331,6 @@ public class GameController {
 
             if (GameUtils.applyNoDiseaseCubesLeftWinCondition(state))
                 AlertUtils.showAlert("Game Won!", "You have won the game.", Alert.AlertType.INFORMATION);
-
-            if (PlayerType.PLAYER_02.name().equals(PandemicApplication.playerType.name())) {
-                Networking.synchronise(P01_PORT);
-            } else if (PlayerType.PLAYER_01.name().equals(PandemicApplication.playerType.name())) {
-                Networking.synchronise(P02_PORT);
-                Platform.runLater(Networking::sendRequest);
-            }
         } catch (Exception e) {
             AlertUtils.showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
         }

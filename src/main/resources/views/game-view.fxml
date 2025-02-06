@@ -225,6 +225,16 @@
                <font>
                   <Font name="Inter Regular" size="13.0" />
                </font></Button>
+            <Label fx:id="lbReplay" layoutX="23.0" layoutY="22.0" text="Number of actions left in last turn:" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbReplayValue" layoutX="284.0" layoutY="22.0" text="N/A" textFill="WHITE">
+               <font>
+                  <Font name="Inter Regular" size="16.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
         <StackPane id="stackPaneRight" prefHeight="150.0" prefWidth="200.0">
