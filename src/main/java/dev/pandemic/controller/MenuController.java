@@ -4,9 +4,10 @@ import dev.pandemic.documentation.DocumentationUtils;
 import dev.pandemic.enumerations.FilePath;
 import dev.pandemic.model.GameState;
 import dev.pandemic.model.State;
-import dev.pandemic.utilities.AlertUtils;
-import dev.pandemic.utilities.JAXBUtils;
-import dev.pandemic.utilities.SceneLoader;
+import dev.pandemic.fxutilities.AlertUtils;
+import dev.pandemic.utilities.serialization.JAXBUtils;
+import dev.pandemic.fxutilities.SceneLoader;
+import dev.pandemic.utilities.serialization.Serialization;
 import jakarta.xml.bind.JAXBException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MenuController {
@@ -70,8 +72,9 @@ public class MenuController {
     @FXML
     public void loadGame(ActionEvent event) {
         try {
+            Serialization.deserialize(FilePath.SERIALIZED_GAME_STATE.getPath(), FilePath.GAME_STATE_OUTPUT.getPath());
             var state = (State) JAXBUtils.load(State.class, FilePath.GAME_STATE_OUTPUT.getPath());
-            state.getPlayerState().postLoad();
+            state.getPlayer01State().postLoad();
             GameState.getInstance().setState(state);
 
             SceneLoader.loadScene(

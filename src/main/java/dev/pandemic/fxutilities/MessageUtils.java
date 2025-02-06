@@ -1,4 +1,4 @@
-package dev.pandemic.utilities;
+package dev.pandemic.fxutilities;
 
 import dev.pandemic.annotations.UseJavaFXDialog;
 

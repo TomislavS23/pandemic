@@ -6,7 +6,7 @@ import dev.pandemic.enumerations.CardType;
 import dev.pandemic.enumerations.FilePath;
 import dev.pandemic.model.Card;
 import dev.pandemic.model.State;
-import dev.pandemic.utilities.JAXBUtils;
+import dev.pandemic.utilities.serialization.JAXBUtils;
 import jakarta.xml.bind.JAXBException;
 
 import java.util.ArrayList;

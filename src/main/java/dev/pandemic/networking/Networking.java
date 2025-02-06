@@ -1,8 +1,13 @@
 package dev.pandemic.networking;
 
+import dev.pandemic.controller.GameController;
 import dev.pandemic.model.GameState;
 import dev.pandemic.model.State;
 import jakarta.xml.bind.JAXBException;
+import javafx.application.Platform;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,10 +18,9 @@ import java.util.Stack;
 
 public class Networking {
     public static final String HOST = "localhost";
-    public static final int PORT = 1989;
+    public static int PORT = 0;
 
     private Networking() {
-
     }
 
     public static void acceptRequests() {
@@ -34,11 +38,14 @@ public class Networking {
     }
 
     private static void processSerializableClient(Socket clientSocket) {
-        try (ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
-             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
+             ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());) {
             State state = (State) ois.readObject();
-            System.out.println("Game state received from Player 01");
-            oos.writeObject(ois.readObject());
+            GameState.getInstance().setState(state);
+            System.out.println("Game state received.");
+            oos.writeObject(GameState.getInstance().getState());
+            oos.flush();
+            Platform.runLater(() -> GameController.getInstance().initialize());
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -46,18 +53,27 @@ public class Networking {
 
     public static void sendRequest() {
         try (Socket clientSocket = new Socket(HOST, PORT)) {
+            System.out.println();
             System.out.printf("Client is connecting to %s:%d%n", clientSocket.getInetAddress(), clientSocket.getPort());
-
             sendSerializableRequest(clientSocket);
-        } catch (IOException | JAXBException e) {
+        } catch (IOException | JAXBException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private static void sendSerializableRequest(Socket client) throws IOException, JAXBException {
+    private static void sendSerializableRequest(Socket client) throws IOException, JAXBException, ClassNotFoundException {
         ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
         ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
-        oos.writeObject(GameState.getInstance().getState());
-        System.out.println("Game state sent to the Player 02");
+        State state = GameState.getInstance().getState();
+        oos.writeObject(state);
+        oos.flush();
+
+        State response = (State) ois.readObject();
+        System.out.printf("Response received from server: ", response);
+    }
+
+    public static void synchronise(int port) {
+        Networking.PORT = port;
+        Platform.runLater(Networking::sendRequest);
     }
 }

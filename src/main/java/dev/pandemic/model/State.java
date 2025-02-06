@@ -28,8 +28,10 @@ public class State implements Serializable {
     private int startingInfectionCards;
     @XmlElement(name = "epidemic-cards-in-player-deck")
     private int epidemicCardsInPlayerDeck;
-    @XmlElement(name = "player")
-    private Player playerState;
+    @XmlElement(name = "player-01")
+    private Player player01State;
+    @XmlElement(name = "player-02")
+    private Player player02State;
     @XmlElementWrapper(name = "player-cards")
     @XmlElement(name = "card")
     private ArrayList<Card> playerCards;
@@ -52,14 +54,16 @@ public class State implements Serializable {
             ArrayList<Card> playerCards,
             ArrayList<Card> roleCards,
             ArrayList<Card> infectionCards,
-            Player playerState
+            Player player01State,
+            Player player02State
     ) {
         this.diseaseCubes = diseaseCubes;
         this.infectionLevels = infectionLevels;
         this.playerCards = playerCards;
         this.roleCards = roleCards;
         this.infectionCards = infectionCards;
-        this.playerState = playerState;
+        this.player01State = player01State;
+        this.player02State = player02State;
     }
 
     @XmlTransient
@@ -103,8 +107,8 @@ public class State implements Serializable {
     }
 
     @XmlTransient
-    public Player getPlayerState() {
-        return playerState;
+    public Player getPlayer01State() {
+        return player01State;
     }
 
     @XmlTransient
@@ -130,6 +134,11 @@ public class State implements Serializable {
     @XmlTransient
     public ArrayList<InfectionLevel> getInfectionLevels() {
         return infectionLevels;
+    }
+
+    @XmlTransient
+    public Player getPlayer02State() {
+        return player02State;
     }
 }
 

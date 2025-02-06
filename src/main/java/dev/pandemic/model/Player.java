@@ -51,6 +51,7 @@ public class Player implements Serializable {
     public Player(Role role, RoleAbility ability) {
         this.role = role;
         this.ability = ability;
+        this.hand = FXCollections.observableArrayList();
     }
 
     @XmlTransient

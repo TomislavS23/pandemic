@@ -14,5 +14,8 @@
     <player username="PLAYER_01">
         <actionsLeft>4</actionsLeft>
     </player>
+    <player username="PLAYER_02">
+        <actionsLeft>4</actionsLeft>
+    </player>
     <cards/>
 </game-state>

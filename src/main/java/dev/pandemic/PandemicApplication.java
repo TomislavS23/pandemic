@@ -5,10 +5,9 @@ import dev.pandemic.game.GameStateLoader;
 import dev.pandemic.game.StartGameUtils;
 import dev.pandemic.model.GameState;
 import dev.pandemic.networking.Networking;
-import dev.pandemic.utilities.MessageUtils;
+import dev.pandemic.fxutilities.MessageUtils;
 import jakarta.xml.bind.JAXBException;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.*;
 
 public class PandemicApplication extends Application {
-    private static PlayerType playerType;
+    public static PlayerType playerType;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -35,7 +34,15 @@ public class PandemicApplication extends Application {
             if (!PlayerType.SINGLEPLAYER.name().equals(playerType.name()) &&
                     PlayerType.PLAYER_02.name().equals(playerType.name())) {
                 GameState.getInstance().setState(GameStateLoader.prepareGameState());
-                new Thread(Networking::acceptRequests).start();
+                new Thread(() -> {
+                    Networking.PORT = 1989;
+                    Networking.acceptRequests();
+                }).start();
+            } else {
+                new Thread(() -> {
+                    Networking.PORT = 1990;
+                    Networking.acceptRequests();
+                }).start();
             }
         } catch (JAXBException e) {
             MessageUtils.showMessage(e.getMessage(), "Error", 1);

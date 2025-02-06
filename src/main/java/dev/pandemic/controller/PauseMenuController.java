@@ -3,9 +3,10 @@ package dev.pandemic.controller;
 import dev.pandemic.enumerations.FilePath;
 import dev.pandemic.game.GameStateLoader;
 import dev.pandemic.model.GameState;
-import dev.pandemic.utilities.AlertUtils;
-import dev.pandemic.utilities.JAXBUtils;
-import dev.pandemic.utilities.SceneLoader;
+import dev.pandemic.fxutilities.AlertUtils;
+import dev.pandemic.utilities.serialization.JAXBUtils;
+import dev.pandemic.fxutilities.SceneLoader;
+import dev.pandemic.utilities.serialization.Serialization;
 import jakarta.xml.bind.JAXBException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -56,11 +57,12 @@ public class PauseMenuController {
     private void saveGame(MouseEvent mouseEvent) {
         try {
             var state = GameState.getInstance().getState();
-            state.getPlayerState().preSave();
+            state.getPlayer01State().preSave();
 
             JAXBUtils.save(state, FilePath.GAME_STATE_OUTPUT.getPath());
+            Serialization.serialize(FilePath.GAME_STATE_OUTPUT.getPath(), FilePath.SERIALIZED_GAME_STATE.getPath());
             AlertUtils.showAlert("Error", "File saved!", Alert.AlertType.CONFIRMATION);
-        } catch (JAXBException e) {
+        } catch (JAXBException | IOException e) {
             AlertUtils.showAlert("Error", Arrays.toString(e.getStackTrace()), Alert.AlertType.ERROR);
         }
     }

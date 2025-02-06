@@ -1,4 +1,4 @@
-package dev.pandemic.utilities;
+package dev.pandemic.fxutilities;
 
 import dev.pandemic.PandemicApplication;
 import javafx.fxml.FXMLLoader;

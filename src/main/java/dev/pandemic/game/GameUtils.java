@@ -2,6 +2,7 @@ package dev.pandemic.game;
 
 import dev.pandemic.enumerations.CardType;
 import dev.pandemic.enumerations.City;
+import dev.pandemic.enumerations.PlayerType;
 import dev.pandemic.enumerations.RoleAbility;
 import dev.pandemic.model.Card;
 import dev.pandemic.model.State;
@@ -59,14 +60,14 @@ public class GameUtils {
     }
 
     public static boolean hasUnusedEventCards(State state) {
-        var eventCards = state.getPlayerState().getHand().stream()
+        var eventCards = state.getPlayer01State().getHand().stream()
                 .filter(c -> c.getType() == CardType.EVENT).toList();
 
         return !eventCards.isEmpty();
     }
 
     public static void applyRoleAbility(State state, RoleAbility roleAbility, Map<Label, Label> cities) {
-        var pawnLocation = state.getPlayerState().getPawn().getLocation().getCityName();
+        var pawnLocation = state.getPlayer01State().getPawn().getLocation().getCityName();
         var infectionLevel = state.getInfectionLevels().stream().filter(il -> pawnLocation.equals(il.getCity())).findFirst();
         var city = cities.entrySet().stream().filter(c -> pawnLocation.equals(c.getKey().getText())).findFirst();
 
@@ -102,15 +103,24 @@ public class GameUtils {
         return (infectionLevelCount < state.getMaxOutbreaks()) && (diseaseCubeCountRed == 0) && (diseaseCubeCountBlue == 0);
     }
 
-    public static void applyPlayerCard(State state, Card card, Label lbCurrentPawnLocationP1) throws JAXBException {
+    public static void applyPlayerCard(State state, Card card, Label lbCurrentPawnLocation, PlayerType playerType) throws JAXBException {
         var cardType = card.getType();
         var eventType = card.getEventType();
 
         switch (cardType) {
             case CITY -> {
-                var city = City.fromName(card.getName());
-                state.getPlayerState().getPawn().setLocation(city);
-                lbCurrentPawnLocationP1.setText(city.getCityName());
+                switch (playerType) {
+                    case SINGLEPLAYER, PLAYER_01 -> {
+                        var city = City.fromName(card.getName());
+                        state.getPlayer01State().getPawn().setLocation(city);
+                        lbCurrentPawnLocation.setText(city.getCityName());
+                    }
+                    case PLAYER_02 -> {
+                        var city = City.fromName(card.getName());
+                        state.getPlayer02State().getPawn().setLocation(city);
+                        lbCurrentPawnLocation.setText(city.getCityName());
+                    }
+                }
             }
             case EVENT -> {
                 switch (eventType) {

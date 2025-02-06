@@ -1,4 +1,4 @@
-package dev.pandemic.utilities;
+package dev.pandemic.fxutilities;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

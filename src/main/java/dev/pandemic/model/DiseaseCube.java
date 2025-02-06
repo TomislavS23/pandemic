@@ -1,9 +1,7 @@
 package dev.pandemic.model;
 
 import dev.pandemic.enumerations.Color;
-import dev.pandemic.utilities.SerializationUtils;
 import jakarta.xml.bind.annotation.*;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 

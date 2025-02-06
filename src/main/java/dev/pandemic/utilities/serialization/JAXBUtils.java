@@ -1,4 +1,4 @@
-package dev.pandemic.utilities;
+package dev.pandemic.utilities.serialization;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
