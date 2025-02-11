@@ -27,6 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lombok.Getter;
+
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -46,7 +47,6 @@ public class GameController {
     private static final int P01_PORT = 1990;
     private static final int P02_PORT = 1989;
     public static ChatRemoteService chatRemoteService;
-
 
     public GameController() {
         instance = this;
@@ -236,6 +236,7 @@ public class GameController {
         }
     }
 
+    @FXML
     private void useAbility(MouseEvent mouseEvent) {
         if (PlayerType.PLAYER_02.name().equals(PandemicApplication.playerType.name())) {
             GameUtils.applyRoleAbility(state, state.getPlayer02State().getAbility(), fields);
@@ -274,17 +275,7 @@ public class GameController {
             return;
         }
 
-        var player01State = state.getPlayer01State();
-        var player02State = state.getPlayer02State();
-        isInfectionCardDrawn = false;
-        btnUseRoleAbility.setDisable(false);
-        player01State.setActionsLeft(4);
-        player02State.setActionsLeft(4);
-        btnDrawInfectionCards.setDisable(isInfectionCardDrawn);
-        lbActionsLeftPlayer1.setText(String.valueOf(player01State.getActionsLeft()));
-        lbActionsLeftPlayer1.setText(String.valueOf(player02State.getActionsLeft()));
-        player01State.preSave();
-        player02State.preSave();
+        resetProperties();
 
         if (PlayerType.PLAYER_02.name().equals(PandemicApplication.playerType.name())) {
             FXUtils.disableButtons(true, buttons);
@@ -292,10 +283,10 @@ public class GameController {
         } else if (PlayerType.PLAYER_01.name().equals(PandemicApplication.playerType.name())) {
             FXUtils.disableButtons(true, buttons);
             Networking.synchronise(P02_PORT);
+        } else {
+            SaveLastState sls = new SaveLastState(state);
+            new Thread(sls, "save-state-thread").start();
         }
-
-        SaveLastState sls = new SaveLastState(state);
-        new Thread(sls, "save-state-thread").start();
     }
 
     @FXML
@@ -372,8 +363,23 @@ public class GameController {
         try {
             String chatMessage = tfChatMessage.getText();
             chatRemoteService.sendChatMessage(PandemicApplication.playerType + ": " + chatMessage);
+            tfChatMessage.setText(null);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void resetProperties() {
+        var player01State = state.getPlayer01State();
+        var player02State = state.getPlayer02State();
+        isInfectionCardDrawn = false;
+        btnUseRoleAbility.setDisable(false);
+        player01State.setActionsLeft(4);
+        player02State.setActionsLeft(4);
+        btnDrawInfectionCards.setDisable(isInfectionCardDrawn);
+        lbActionsLeftPlayer1.setText(String.valueOf(player01State.getActionsLeft()));
+        lbActionsLeftPlayer1.setText(String.valueOf(player02State.getActionsLeft()));
+        player01State.preSave();
+        player02State.preSave();
     }
 }
