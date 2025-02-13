@@ -1,18 +1,13 @@
 package dev.pandemic.networking.rmi;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.control.TextArea;
-import javafx.util.Duration;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatRemoteServiceImpl implements ChatRemoteService{
+public class ChatServiceImpl implements ChatService {
     private ArrayList<String> chatMessages;
 
-    public ChatRemoteServiceImpl(){
+    public ChatServiceImpl(){
         chatMessages = new ArrayList<>();
     }
 

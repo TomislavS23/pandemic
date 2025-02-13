@@ -12,7 +12,7 @@ import dev.pandemic.fxutilities.AlertUtils;
 import dev.pandemic.game.GameStateLoader;
 import dev.pandemic.fxutilities.FXUtils;
 import dev.pandemic.fxutilities.SceneLoader;
-import dev.pandemic.networking.rmi.ChatRemoteService;
+import dev.pandemic.networking.rmi.ChatService;
 import dev.pandemic.networking.rmi.RMIServer;
 import dev.pandemic.thread.SaveLastState;
 import dev.pandemic.timeline.Timelines;
@@ -46,7 +46,7 @@ public class GameController {
     private static final ArrayList<Button> buttons = new ArrayList<>();
     private static final int P01_PORT = 1990;
     private static final int P02_PORT = 1989;
-    public static ChatRemoteService chatRemoteService;
+    public static ChatService chatService;
 
     public GameController() {
         instance = this;
@@ -147,9 +147,9 @@ public class GameController {
     private void initializeRegistry() {
         try {
             Registry registry = LocateRegistry.getRegistry(RMIServer.HOSTNAME, RMIServer.RMI_PORT);
-            chatRemoteService = (ChatRemoteService) registry.lookup(ChatRemoteService.REMOTE_OBJECT_NAME);
+            chatService = (ChatService) registry.lookup(ChatService.REMOTE_OBJECT_NAME);
 
-            Timeline refreshTimeLine = Timelines.getChatRefreshTimeline(chatRemoteService, taMessages);
+            Timeline refreshTimeLine = Timelines.getChatRefreshTimeline(chatService, taMessages);
             refreshTimeLine.play();
         } catch (NotBoundException | RemoteException e) {
             e.printStackTrace();
@@ -362,7 +362,7 @@ public class GameController {
     public void sendChatMessage(ActionEvent actionEvent) {
         try {
             String chatMessage = tfChatMessage.getText();
-            chatRemoteService.sendChatMessage(PandemicApplication.playerType + ": " + chatMessage);
+            chatService.sendChatMessage(PandemicApplication.playerType + ": " + chatMessage);
             tfChatMessage.setText(null);
         } catch (RemoteException e) {
             throw new RuntimeException(e);

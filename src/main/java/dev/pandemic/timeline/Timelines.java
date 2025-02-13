@@ -1,6 +1,6 @@
 package dev.pandemic.timeline;
 
-import dev.pandemic.networking.rmi.ChatRemoteService;
+import dev.pandemic.networking.rmi.ChatService;
 import dev.pandemic.thread.ReadLastState;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -17,15 +17,13 @@ public class Timelines {
 
     }
 
-    public static Timeline getChatRefreshTimeline(ChatRemoteService chatRemoteService, TextArea taMessages) {
+    public static Timeline getChatRefreshTimeline(ChatService chatService, TextArea taMessages) {
         Timeline refreshTimeLine = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             try {
-                List<String> chatMessages = chatRemoteService.getAllMessages();
+                List<String> chatMessages = chatService.getAllMessages();
                 StringBuilder sb = new StringBuilder();
 
-                chatMessages.forEach(m -> {
-                    sb.append(m).append("\n");
-                });
+                chatMessages.forEach(m -> sb.append(m).append("\n"));
 
                 taMessages.setText(sb.toString());
             } catch (RemoteException ex) {

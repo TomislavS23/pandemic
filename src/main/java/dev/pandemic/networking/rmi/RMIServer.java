@@ -13,9 +13,9 @@ public class RMIServer {
     public static void main(String[] args) {
         try {
             Registry registry = LocateRegistry.createRegistry(RMI_PORT);
-            ChatRemoteService chatRemoteService = new ChatRemoteServiceImpl();
-            ChatRemoteService skeleton = (ChatRemoteService) UnicastRemoteObject.exportObject(chatRemoteService, RANDOM_PORT_HINT);
-            registry.rebind(ChatRemoteService.REMOTE_OBJECT_NAME, skeleton);
+            ChatService chatService = new ChatServiceImpl();
+            ChatService skeleton = (ChatService) UnicastRemoteObject.exportObject(chatService, RANDOM_PORT_HINT);
+            registry.rebind(ChatService.REMOTE_OBJECT_NAME, skeleton);
             System.err.println("Object registered in RMI registry.");
 
             synchronized (RMIServer.class) {

@@ -53,7 +53,6 @@ public class Networking {
 
     public static void sendRequest() {
         try (Socket clientSocket = new Socket(HOST, PORT)) {
-            System.out.println();
             System.out.printf("Client is connecting to %s:%d%n", clientSocket.getInetAddress(), clientSocket.getPort());
             sendSerializableRequest(clientSocket);
         } catch (IOException | JAXBException | ClassNotFoundException e) {

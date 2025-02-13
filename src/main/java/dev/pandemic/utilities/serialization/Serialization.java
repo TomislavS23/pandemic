@@ -76,7 +76,7 @@ public class Serialization {
             Object obj = in.readObject();
             return Optional.of(obj);
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         FILE_ACCESS_IN_PROGRESS = false;

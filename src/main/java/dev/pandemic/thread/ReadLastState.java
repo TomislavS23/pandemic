@@ -31,7 +31,7 @@ public class ReadLastState implements Runnable {
                 Platform.runLater(() -> label.setText("Last card used:" + states.peek().getCardDiscardPile().getLast()));
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 }

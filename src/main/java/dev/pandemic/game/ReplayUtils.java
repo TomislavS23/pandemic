@@ -26,8 +26,4 @@ public class ReplayUtils {
     public void appendToReplay(State state) {
         states.add(state);
     }
-
-    public State readLastMove() {
-        return states.getLast();
-    }
 }
